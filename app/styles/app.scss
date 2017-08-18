@@ -1,8 +1,7 @@
-@import 'bootstrap';
-@import 'ember-power-select';
-@import 'base';
 @import 'variables';
-@import 'hint';
+@import 'ember-bootstrap/bootstrap';
+@import 'osf-style';
+@import 'ember-osf';
 
 /* Override styles from ember-osf and osf */
 .footer {
