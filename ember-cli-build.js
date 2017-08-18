@@ -5,7 +5,6 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const Funnel = require('broccoli-funnel');
 const configFunc = require('./config/environment');
-const path = require('path');
 
 
 module.exports = function(defaults) {
@@ -25,6 +24,9 @@ module.exports = function(defaults) {
         sourcemaps: {
             enabled: true,
             extensions: ['js']
+        },
+        fingerprint: {
+            extensions: ['js', 'css', 'map']
         },
         minifyJS: {enabled: LEAN_BUILD},
         minifyCSS: {enabled: LEAN_BUILD},
@@ -117,12 +119,16 @@ module.exports = function(defaults) {
     // please specify an object with the list of modules as keys
     // along with the exports of each module as its value.
 
-    app.import(path.join(app.bowerDirectory, 'osf-style/img/cos-white2.png'), {
-        destDir: 'img'
-    });
+    let assets = [
+        new Funnel('node_modules/font-awesome/fonts', {
+            srcDir: '/',
+            destDir: '/assets/fonts',
+        }),
+        new Funnel('bower_components/osf-style/img', {
+            srcDir: '/',
+            destDir: '/img',
+        })
+    ];
 
-    return app.toTree(new Funnel('node_modules/font-awesome/fonts/', {
-        srcDir: '/',
-        destDir: '/assets/fonts',
-    }));
+    return app.toTree(assets);
 };
