@@ -2,9 +2,10 @@
 
 'use strict';
 
-const path = require('path');
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const Funnel = require('broccoli-funnel');
 const configFunc = require('./config/environment');
+const path = require('path');
 
 
 module.exports = function(defaults) {
@@ -41,6 +42,7 @@ module.exports = function(defaults) {
         sassOptions: {
             includePaths: [
                 'bower_components/osf-style/sass',
+                'node_modules/font-awesome/scss',
             ]
         },
         inlineContent: {
@@ -119,5 +121,8 @@ module.exports = function(defaults) {
         destDir: 'img'
     });
 
-    return app.toTree();
+    return app.toTree(new Funnel('node_modules/font-awesome/fonts/', {
+        srcDir: '/',
+        destDir: '/assets/fonts',
+    }));
 };
