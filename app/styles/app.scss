@@ -1,8 +1,15 @@
-@import 'bootstrap';
-@import 'ember-power-select';
-@import 'base';
+// All variable overrides
 @import 'variables';
-@import 'hint';
+
+@import 'ember-bootstrap/bootstrap';
+@import 'font-awesome';
+@import 'osf-style';
+
+// Various other local styles sheets
+@import './provider-setup';
+
+// Import all styles from pod style components
+@import 'pod-styles';
 
 /* Override styles from ember-osf and osf */
 .footer {
@@ -71,6 +78,7 @@
   .btn-info {
     color: #fff
   }
+
 }
 
 .reviews-middle{

@@ -1,3 +1,4 @@
+// Internal variables
 $theme-color-light: #67A3BF;
 $theme-color-dark: #166596;
 $reviews-title: #D2D2D2;
@@ -6,3 +7,6 @@ $gradient-percentage: 15%;
 $nav-bar-height: 25px;
 $carousel-control-width: 10%;
 $screen-xs: 400px;
+
+// Overrides
+$fa-font-path: 'fonts';

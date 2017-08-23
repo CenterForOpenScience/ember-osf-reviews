@@ -1,0 +1,24 @@
+Start Moderating
+
+{{#if choiceRequired}}
+    {{#bs-modal onSubmit=(action "submit") onHide=(action "cancel") as |modal|}}
+        {{#modal.header}}
+            <h4 class="modal-title">You're an Admin for Multiple Providers</h4>
+        {{/modal.header}}
+        {{#modal.body}}
+            Which provider would you like to set up?
+            {{#each providers as |provider index|}}
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="provider" id={{provider.id}} value={{provider.id}} checked={{unless index 'checked' ''}}>
+                        {{provider.name}}
+                    </label>
+                </div>
+            {{/each}}
+        {{/modal.body}}
+        {{#modal.footer as |footer|}}
+            {{#bs-button onClick=(action modal.close) type="default"}}Cancel{{/bs-button}}
+            {{#bs-button onClick=(action modal.submit) type="success"}}Start Moderating{{/bs-button}}
+        {{/modal.footer}}
+    {{/bs-modal}}
+{{/if}}
