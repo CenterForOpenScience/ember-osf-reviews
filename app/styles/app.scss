@@ -244,3 +244,8 @@ li.active > a {
   background-color: #ecf2f3;
   border-bottom: 1px solid #d6dbdc;
 }
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.4;
+}

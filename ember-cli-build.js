@@ -5,6 +5,7 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const Funnel = require('broccoli-funnel');
 const configFunc = require('./config/environment');
+const Rollup = require('broccoli-rollup');
 
 
 module.exports = function(defaults) {
@@ -38,7 +39,7 @@ module.exports = function(defaults) {
         },
         sassOptions: {
             includePaths: [
-                // 'node_modules/@centerforopenscience/osf-style/sass',
+                'node_modules/@centerforopenscience/osf-style/sass',
                 'node_modules/font-awesome/scss',
             ]
         },
@@ -95,7 +96,28 @@ module.exports = function(defaults) {
         //         }]
         //     }
         // },
+        // javascript() {
+        //     const tree = this._super.apply(this, arguments);
+        //     return new Rollup(tree, {rollup: {
+        //         entry: 'assets/vendor.js',
+        //         dest: 'assets/vendor.js',
+        //     }});
+        // }
+        // addonPreprocessTree(type, tree) {
+        //     console.log(arguments);
+        // }
     });
+
+    // let old = app.addonPreprocessTree
+    // app.addonPreprocessTree = function(type, tree) {
+    //     tree = old.apply(this, arguments);
+    //     if (type === 'js')
+    //         return new Rollup(tree, {rollup: {
+    //             entry: 'reviews/app.js',
+    //             dest: 'assets/rolled-up.js',
+    //         }});
+    //     return tree
+    // }
 
     // Use `app.import` to add additional libraries to the generated
     // output files.
@@ -115,7 +137,7 @@ module.exports = function(defaults) {
             srcDir: '/',
             destDir: '/assets/fonts',
         }),
-        new Funnel('bower_components/osf-style/img', {
+        new Funnel('node_modules/@centerforopenscience/osf-style/img', {
             srcDir: '/',
             destDir: '/img',
         })

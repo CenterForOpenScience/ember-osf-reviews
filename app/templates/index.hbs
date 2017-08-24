@@ -6,8 +6,10 @@
                 {{!TITLE}}
                 <div class="text-center m-t-lg col-xs-12">
                     <div class="p-b-xl reviews-brand"></div>
-                    <br>
-                    {{start-moderating action=(action 'setupProvider')}}
+                    {{#if model}}
+                        <br>
+                        {{start-moderating action=(action 'setupProvider') providers=model}}
+                    {{/if}}
                 </div>
             </div> {{!END ROW}}
         </div> {{!END CONTAINER}}

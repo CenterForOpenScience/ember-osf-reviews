@@ -9,14 +9,12 @@ import Ember from 'ember';
  * @class Provider Route Handler
  */
 export default Ember.Route.extend({
-    theme: Ember.inject.service(),
-    model(params, transition) {
-        const {slug = ''} = transition.params.provider;
-        const slugLower = slug.toLowerCase();
-        return this.store.find('preprint-provider', slugLower).then((provider) =>{
-            this.set('theme.id', provider.id);
-        }).catch(() =>{
+    model(params) {
+        return this.store.findRecord('preprint-provider', params.provider_id.toLowerCase()).catch(() => {
             this.replaceWith('page-not-found');
         });
     },
+    afterModel(model/*, transition */) {
+        if (!model.get('reviewsWorkflow')) return this.transitionTo('provider.setup', model);
+    }
 });

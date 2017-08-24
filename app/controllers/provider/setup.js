@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 const REVIEWS_PROVIDER_SETTINGS = [{
+    disabled: false,
     name: 'moderationType',
     title: 'Moderation Type',
     description: '',
@@ -14,6 +15,7 @@ const REVIEWS_PROVIDER_SETTINGS = [{
         description: 'All preprints are displayed publicly immediately upon submission. Preprints also appear in a queue for a moderator to accept or reject. If rejected, the preprint is no longer displayed publicly.',
     }]
 }, {
+    disabled: false,
     name: 'commentVisibility',
     title: 'Comment Visibility',
     description: 'Moderators can add comments when making a decision about a submission.',
@@ -27,6 +29,7 @@ const REVIEWS_PROVIDER_SETTINGS = [{
         description: 'Comments will be visible to {{PROVIDER}} moderators AND contributors on the submission.',
     }]
 }, {
+    disabled: true,
     name: 'moderatorComments',
     title: 'Moderator Comments',
     description: 'If moderator comments are visible to contributors, the moderator’s name can can be displayed or hidden from the contributors.',
@@ -43,6 +46,9 @@ const REVIEWS_PROVIDER_SETTINGS = [{
 
 
 export default Ember.Controller.extend({
+    session: Ember.inject.service(),
+    currentUser: Ember.inject.service(),
+
     // Defaults
     moderationType: 'pre-moderation',
     commentVisibility: 'moderators',
@@ -50,8 +56,8 @@ export default Ember.Controller.extend({
 
     settingsOptions: Ember.computed('model', function() {
         // TODO find a better way to do this
-        REVIEWS_PROVIDER_SETTINGS[1]['options'][0].description = REVIEWS_PROVIDER_SETTINGS[1]['options'][0].description.replace('{{PROVIDER}}', this.get('model.name'));
-        REVIEWS_PROVIDER_SETTINGS[1]['options'][1].description = REVIEWS_PROVIDER_SETTINGS[1]['options'][1].description.replace('{{PROVIDER}}', this.get('model.name'));
+        Ember.set(REVIEWS_PROVIDER_SETTINGS[1]['options'][0], 'description', REVIEWS_PROVIDER_SETTINGS[1]['options'][0].description.replace('{{PROVIDER}}', this.get('model.name')));
+        Ember.set(REVIEWS_PROVIDER_SETTINGS[1]['options'][1], 'description', REVIEWS_PROVIDER_SETTINGS[1]['options'][1].description.replace('{{PROVIDER}}', this.get('model.name')));
         return REVIEWS_PROVIDER_SETTINGS;
     }),
 
@@ -61,7 +67,10 @@ export default Ember.Controller.extend({
             return false;
         },
         submit() {
-
+            REVIEWS_PROVIDER_SETTINGS.forEach(setting => {
+                this.set(`model.${setting.name}`, this.get(setting.name));
+            });
+            this.model.save().then(() => this.transitionToRoute('provider', this.get('model')));
         }
     }
 });

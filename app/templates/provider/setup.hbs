@@ -18,7 +18,7 @@
         <div class="row m-t-lg">
             <form class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10">
                 {{#each settingsOptions as |option|}}
-                    {{#form-block title=option.title description=option.description}}
+                    {{#form-block title=option.title description=option.description disabled=option.disabled}}
                         {{#each option.options as |choice|}}
                             {{form-block-radiobutton
                             title=choice.title
