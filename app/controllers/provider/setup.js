@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 const REVIEWS_PROVIDER_SETTINGS = [{
     disabled: false,
-    name: 'moderationType',
+    name: 'reviewsWorkflow',
     title: 'Moderation Type',
     description: '',
     options: [{
@@ -16,29 +16,29 @@ const REVIEWS_PROVIDER_SETTINGS = [{
     }]
 }, {
     disabled: false,
-    name: 'commentVisibility',
+    name: 'reviewsCommentsPrivate',
     title: 'Comment Visibility',
     description: 'Moderators can add comments when making a decision about a submission.',
     options: [{
-        value: 'moderators',
+        value: true,
         title: 'Moderators',
         description: 'Comments will be visible to {{PROVIDER}} moderators NOT contributors on the submission.'
     }, {
-        value: 'moderators+contributors',
+        value: false,
         title: 'Moderators and Contributors',
         description: 'Comments will be visible to {{PROVIDER}} moderators AND contributors on the submission.',
     }]
 }, {
     disabled: true,
-    name: 'moderatorComments',
+    name: 'reviewsCommentsAnonymous',
     title: 'Moderator Comments',
     description: 'If moderator comments are visible to contributors, the moderator’s name can can be displayed or hidden from the contributors.',
     options: [{
-        value: 'anonymized',
+        value: true,
         title: 'Anonymized comments',
         description: 'All comments will be visible to the contributors of the submission, but the moderators name will not be displayed.',
     }, {
-        value: 'named',
+        value: false,
         title: 'Named comments',
         description: 'All comments will be visible to the contributors of the submission and the moderator’s OSF profile name will be displayed.',
     }]
@@ -46,13 +46,14 @@ const REVIEWS_PROVIDER_SETTINGS = [{
 
 
 export default Ember.Controller.extend({
-    session: Ember.inject.service(),
     currentUser: Ember.inject.service(),
+    session: Ember.inject.service(),
+    toast: Ember.inject.service(),
 
     // Defaults
-    moderationType: 'pre-moderation',
-    commentVisibility: 'moderators',
-    moderatorComments: 'anonymized',
+    reviewsWorkflow: 'pre-moderation',
+    reviewsCommentsPrivate: true,
+    reviewsCommentsAnonymous: true,
 
     settingsOptions: Ember.computed('model', function() {
         // TODO find a better way to do this
@@ -70,7 +71,15 @@ export default Ember.Controller.extend({
             REVIEWS_PROVIDER_SETTINGS.forEach(setting => {
                 this.set(`model.${setting.name}`, this.get(setting.name));
             });
-            this.model.save().then(() => this.transitionToRoute('provider', this.get('model')));
+
+            this.get('model').save().then(() => {
+                return this.transitionToRoute('provider', this.get('model'));
+            }).catch(() => {
+                this.get('toast').error({
+                    msg: `Unable to complete the setup of ${this.get('model.name')}, please try again later.`,
+                    title: 'That\'s not supposed to happen...',
+                })
+            });
         }
     }
 });

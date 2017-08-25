@@ -40,8 +40,10 @@
     "ember-load-initializers": "^1.0.0",
     "ember-resolver": "^4.0.0",
     "ember-source": "~2.14.1",
+    "ember-toastr": "^1.7.0",
     "eslint": "^4.4.1",
     "loader.js": "^4.2.3",
+    "toastr": "^2.1.2",
     "ui-navigator-service": "^0.3.11"
   },
   "engines": {
