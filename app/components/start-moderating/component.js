@@ -9,7 +9,7 @@ export default Ember.Component.extend({
     disabled: false,
     choiceRequired: false,
 
-    providers: [{id: 'engrxiv', name: 'EngrXiv'}, {id: 'socrxiv', name: 'Socrxiv'}],
+    providers: [],
 
     click() {
         if (this.get('providers.length') > 1) {

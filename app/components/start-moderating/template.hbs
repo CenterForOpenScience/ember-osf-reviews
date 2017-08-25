@@ -1,12 +1,12 @@
-Start Moderating
+{{t "setup.start"}}
 
 {{#if choiceRequired}}
     {{#bs-modal onSubmit=(action "submit") onHide=(action "cancel") as |modal|}}
         {{#modal.header}}
-            <h4 class="modal-title">You're an Admin for Multiple Providers</h4>
+            <h4 class="modal-title">{{t "setup.multiple_providers"}}</h4>
         {{/modal.header}}
         {{#modal.body}}
-            Which provider would you like to set up?
+            {{t "setup.which"}}
             {{#each providers as |provider index|}}
                 <div class="radio">
                     <label>
@@ -17,8 +17,8 @@ Start Moderating
             {{/each}}
         {{/modal.body}}
         {{#modal.footer as |footer|}}
-            {{#bs-button onClick=(action modal.close) type="default"}}Cancel{{/bs-button}}
-            {{#bs-button onClick=(action modal.submit) type="success"}}Start Moderating{{/bs-button}}
+            {{#bs-button onClick=(action modal.close) type="default"}}(t "global.cancel"){{/bs-button}}
+            {{#bs-button onClick=(action modal.submit) type="success"}}(t "setup.start"){{/bs-button}}
         {{/modal.footer}}
     {{/bs-modal}}
 {{/if}}
