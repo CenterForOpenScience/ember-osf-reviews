@@ -1,15 +1,21 @@
 // All variable overrides
 @import 'variables';
 
+// 3rd parties
 @import 'ember-bootstrap/bootstrap';
 @import 'font-awesome';
+@import 'toastr';
+
+// Our 3rd parties
 @import 'osf-style';
+@import 'ember-osf';
 
 // Various other local styles sheets
 @import 'provider';
 
 // Import all styles from pod style components
 @import 'pod-styles';
+
 
 /* Override styles from ember-osf and osf */
 .footer {

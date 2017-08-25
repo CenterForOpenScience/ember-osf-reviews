@@ -5,7 +5,6 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const Funnel = require('broccoli-funnel');
 const configFunc = require('./config/environment');
-const Rollup = require('broccoli-rollup');
 
 
 module.exports = function(defaults) {
@@ -41,6 +40,7 @@ module.exports = function(defaults) {
             includePaths: [
                 'node_modules/@centerforopenscience/osf-style/sass',
                 'node_modules/font-awesome/scss',
+                'node_modules/toastr',
             ]
         },
         inlineContent: {
@@ -71,53 +71,21 @@ module.exports = function(defaults) {
             importBootstrapCSS: false,
             importBootstrapFont: false,
         },
-        // postcssOptions: {
-        //     compile: {
-        //         enabled: false
-        //     },
-        //     filter: {
-        //         enabled: true,
-        //         plugins: [{
-        //             module: require('autoprefixer'),
-        //             options: {
-        //                 browsers: ['last 4 versions'],
-        //                 cascade: false
-        //             }
-        //         }, {
-        //             // Wrap progid declarations with double-quotes
-        //             module: require('postcss').plugin('progid-wrapper', () => {
-        //                 return css =>
-        //                     css.walkDecls(declaration => {
-        //                         if (declaration.value.startsWith('progid')) {
-        //                             return declaration.value = `"${declaration.value}"`;
-        //                         }
-        //                     });
-        //             })
-        //         }]
-        //     }
-        // },
-        // javascript() {
-        //     const tree = this._super.apply(this, arguments);
-        //     return new Rollup(tree, {rollup: {
-        //         entry: 'assets/vendor.js',
-        //         dest: 'assets/vendor.js',
-        //     }});
-        // }
-        // addonPreprocessTree(type, tree) {
-        //     console.log(arguments);
-        // }
+        postcssOptions: {
+            // Doesn't agree with SCSS; must be disabled
+            compile: {enabled: false},
+            filter: {
+                browsers: ['last 4 versions'],
+                enabled: LEAN_BUILD,
+                include: ['**/*.css'],
+                plugins: [{
+                    module: require('autoprefixer')
+                }, {
+                    module: require('cssnano')
+                }]
+            },
+        },
     });
-
-    // let old = app.addonPreprocessTree
-    // app.addonPreprocessTree = function(type, tree) {
-    //     tree = old.apply(this, arguments);
-    //     if (type === 'js')
-    //         return new Rollup(tree, {rollup: {
-    //             entry: 'reviews/app.js',
-    //             dest: 'assets/rolled-up.js',
-    //         }});
-    //     return tree
-    // }
 
     // Use `app.import` to add additional libraries to the generated
     // output files.

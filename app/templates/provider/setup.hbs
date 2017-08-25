@@ -22,7 +22,7 @@
                         {{#each option.options as |choice|}}
                             {{form-block-radiobutton
                             title=(t (concat "setup.settings." option.name ".options." choice ".title"))
-                            description=(t (concat "setup.settings." option.name ".options." choice ".description"))
+                            description=(t (concat "setup.settings." option.name ".options." choice ".description") provider=model.name)
                             name=option.name
                             value=choice
                             attribute=(mut (get this option.name))
