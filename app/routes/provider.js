@@ -14,7 +14,7 @@ export default Ember.Route.extend({
             this.replaceWith('page-not-found');
         });
     },
-    afterModel(model/*, transition */) {
-        if (!model.get('reviewsWorkflow')) return this.replaceWith('provider.setup', model);
+    afterModel(model, transition) {
+        if (!model.get('reviewsWorkflow') && transition.targetName !== 'provider.setup') return this.replaceWith('provider.setup', model);
     }
 });

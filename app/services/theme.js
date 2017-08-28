@@ -22,14 +22,6 @@ export default Ember.Service.extend({
     // The id of the current provider
     id: config.Reviews.defaultProvider,
 
-    provider: Ember.computed('id', function() {
-        return this.get('store').findRecord('preprint-provider', this.get('id'));
-    }),
-
-    isProvider: Ember.computed('id', function() {
-        return this.get('id') !== 'osf';
-    }),
-
     // The url to redirect users to sign up to
     signupUrl: Ember.computed('id', function() {
         const query = Ember.$.param({
@@ -38,5 +30,6 @@ export default Ember.Service.extend({
         });
 
         return `${config.OSF.url}register?${query}`;
-    })
+    }),
+
 });

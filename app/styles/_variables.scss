@@ -1,3 +1,6 @@
+// Overrides
+$fa-font-path: 'fonts';
+
 // Internal variables
 $theme-color-light: #67A3BF;
 $theme-color-dark: #166596;
@@ -8,5 +11,6 @@ $nav-bar-height: 25px;
 $carousel-control-width: 10%;
 $screen-xs: 400px;
 
-// Overrides
-$fa-font-path: 'fonts';
+$color-bg: #FCFCFC;
+$color-border: #DDD;
+$color-panel-bg: #EEF2F3;

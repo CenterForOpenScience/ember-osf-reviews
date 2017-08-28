@@ -38,6 +38,7 @@
     "ember-export-application-global": "^2.0.0",
     "ember-i18n": "5.0.2",
     "ember-load-initializers": "^1.0.0",
+    "ember-radio-button": "^1.1.1",
     "ember-resolver": "^4.0.0",
     "ember-source": "~2.14.1",
     "ember-toastr": "^1.7.0",

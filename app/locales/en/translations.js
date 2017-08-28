@@ -53,8 +53,8 @@ export default {
     },
     setup: {
         start: `Start Moderating`,
-        which: `Which provider would you like to set up?`,
-        mulitple_providers: `You're an Admin for Multiple Providers`,
+        which: `Which provider would you like to set up first?`,
+        multiple_providers: `You're an Admin for Multiple Providers`,
         choose_settings: `Choose moderation settings for {{provider}}`,
         once_finalized: `Once finalized, moderation settings can only be changed by an OSF administrator.`,
         finalize: `Finalize Settings`,

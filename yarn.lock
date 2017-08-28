@@ -2637,7 +2637,7 @@ ember-cli-htmlbars@2.0.1:
     json-stable-stringify "^1.0.0"
     strip-bom "^3.0.0"
 
-ember-cli-htmlbars@^1.1.1:
+ember-cli-htmlbars@^1.0.10, ember-cli-htmlbars@^1.1.1:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/ember-cli-htmlbars/-/ember-cli-htmlbars-1.3.4.tgz#461289724b34af372a6a0c4b6635819156963353"
   dependencies:
@@ -3103,6 +3103,13 @@ ember-qunit@^2.2.0:
   resolved "https://registry.yarnpkg.com/ember-qunit/-/ember-qunit-2.2.0.tgz#3cdf400031c93a38de781a7304819738753b7f99"
   dependencies:
     ember-test-helpers "^0.6.3"
+
+ember-radio-button@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ember-radio-button/-/ember-radio-button-1.1.1.tgz#e5ae8361ff032a4f1be91a810295e196eb2acf97"
+  dependencies:
+    ember-cli-babel "^5.1.7"
+    ember-cli-htmlbars "^1.0.10"
 
 ember-radio-buttons@4.0.3:
   version "4.0.3"

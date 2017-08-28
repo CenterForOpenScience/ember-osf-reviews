@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const REVIEWS_PROVIDER_SETTINGS = [{
+const PROVIDER_SETTINGS = [{
     disabled: false,
     name: 'reviewsWorkflow',
     options: ['pre-moderation', 'post-moderation']
@@ -16,8 +16,7 @@ const REVIEWS_PROVIDER_SETTINGS = [{
 
 
 export default Ember.Controller.extend({
-    currentUser: Ember.inject.service(),
-    session: Ember.inject.service(),
+    i18n: Ember.inject.service(),
     toast: Ember.inject.service(),
 
     // Defaults
@@ -25,7 +24,32 @@ export default Ember.Controller.extend({
     reviewsCommentsPrivate: true,
     reviewsCommentsAnonymous: true,
 
-    settingsOptions: REVIEWS_PROVIDER_SETTINGS,
+    _t(key, tpl={}) {
+        tpl.provider = this.get('model.name');
+        return this.get('i18n').t(`setup.settings.${key}`, tpl);
+    },
+
+    _buildOption(setting, option) {
+        return {
+            value: option,
+            title: this._t(`${setting.name}.options.${option}.title`),
+            description: this._t(`${setting.name}.options.${option}.description`),
+        };
+    },
+
+    _buildSetting(setting) {
+        return {
+            disabled: setting.disabled,
+            attributeName: setting.name,
+            title: this._t(`${setting.name}.title`),
+            description: this._t(`${setting.name}.description`),
+            options: setting.options.map(this._buildOption.bind(this, setting)),
+        };
+    },
+
+    providerSettings: Ember.computed('model', function() {
+        return PROVIDER_SETTINGS.map(this._buildSetting.bind(this));
+    }),
 
     actions: {
         cancel() {
@@ -33,7 +57,7 @@ export default Ember.Controller.extend({
             return false;
         },
         submit() {
-            REVIEWS_PROVIDER_SETTINGS.forEach(setting => {
+            PROVIDER_SETTINGS.forEach(setting => {
                 this.set(`model.${setting.name}`, this.get(setting.name));
             });
 

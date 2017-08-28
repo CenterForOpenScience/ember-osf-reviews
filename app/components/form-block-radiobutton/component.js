@@ -12,7 +12,7 @@ export default Ember.Component.extend({
     // Bound attribute
     attribute: null,
 
-    checked: Ember.computed('attribute', function() {
+    checked: Ember.computed('attribute', 'value', function() {
         return this.get('value') == this.get('attribute') ? 'checked' : null;
     }),
 

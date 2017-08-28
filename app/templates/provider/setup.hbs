@@ -15,34 +15,26 @@
     </div>
 
     <div class="container">
-        <div class="row m-t-lg">
-            <form class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10">
-                {{#each settingsOptions as |option|}}
-                    {{#form-block title=(t (concat "setup.settings." option.name ".title")) description=(t (concat "setup.settings." option.name ".description")) disabled=option.disabled}}
-                        {{#each option.options as |choice|}}
-                            {{form-block-radiobutton
-                            title=(t (concat "setup.settings." option.name ".options." choice ".title"))
-                            description=(t (concat "setup.settings." option.name ".options." choice ".description") provider=model.name)
-                            name=option.name
-                            value=choice
-                            attribute=(mut (get this option.name))
-                            }}
-                        {{/each}}
-                    {{/form-block}}
-                {{/each}}
-            </form>
-        </div>
+        <form class="row m-t-lg">
+            {{#each providerSettings as |setting|}}
+                {{#form-block title=setting.title description=setting.description disabled=setting.disabled}}
+                    {{#each setting.options as |option|}}
+                        {{form-block-radiobutton
+                        title=option.title
+                        description=option.description
+                        name=setting.attributeName
+                        value=option.value
+                        attribute=(mut (get this setting.attributeName))
+                        }}
+                    {{/each}}
+                {{/form-block}}
+            {{/each}}
 
-        <br>
-
-        <div class="row">
-            <div class="col-xs-offset-2 col-xs-8">
-                <div class="btn-toolbar pull-right">
-                    <button class="btn btn-default" {{action "cancel"}}>{{t "global.cancel"}}</button>
-                    <button class="btn btn-success" {{action "submit"}}>{{t "setup.finalize"}}</button>
-                </div>
+            <div class="m-t-lg btn-toolbar pull-right">
+                <button class="btn btn-default" {{action "cancel"}}>{{t "global.cancel"}}</button>
+                <button class="btn btn-success" {{action "submit"}}>{{t "setup.finalize"}}</button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
