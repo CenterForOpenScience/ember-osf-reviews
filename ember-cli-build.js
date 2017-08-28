@@ -66,7 +66,6 @@ module.exports = function(defaults) {
             }
         },
         'ember-bootstrap': {
-            whitelist: ['bs-button', 'bs-modal', 'bs-form'],
             bootstrapVersion: 3,
             importBootstrapCSS: false,
             importBootstrapFont: false,
