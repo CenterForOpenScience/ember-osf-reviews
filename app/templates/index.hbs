@@ -5,9 +5,8 @@
             <div class="row">{{!HEADER ROW}}
                 {{!TITLE}}
                 <div class="text-center m-t-lg col-xs-12">
-                    <div class="p-b-xl reviews-brand"></div>
+                    <div class="m-b-lg reviews-brand"></div>
                     {{#if model}}
-                        <br>
                         {{start-moderating action=(action 'setupProvider') providers=model}}
                     {{/if}}
                 </div>

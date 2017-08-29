@@ -19,10 +19,11 @@
 }
 
 .reviews-middle{
+  @include bottom-border;
+
   background: white;
   padding-top: 50px;
   padding-bottom: 30px;
-  border-bottom: 1px solid #dddddd;
   color: #333333;
   text-align: left;
   h2 {
@@ -49,10 +50,11 @@
 }
 
 .reviews-workflow{
+  @include bottom-border;
+
   background: white url('img/reviews-workflow-background.jpg') top center;
   padding-top: 30px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #dddddd;
   color: white;
   h2 {
     font-weight: bold;
