@@ -58,6 +58,10 @@ export default {
         choose_settings: `Choose moderation settings for {{provider}}`,
         once_finalized: `Once finalized, moderation settings can only be changed by an OSF administrator.`,
         finalize: `Finalize Settings`,
+        error: {
+            message: `Unable to complete the setup of {{provider}}. Please contact support@osf.io.`,
+            title: `Something went wrong`,
+        },
         settings: {
             reviewsWorkflow: {
                 title: `Moderation Type`,

@@ -64,10 +64,12 @@ export default Ember.Controller.extend({
             this.get('model').save().then(() => {
                 return this.transitionToRoute('provider', this.get('model'));
             }).catch(() => {
+                this.get('model').rollbackAttributes();
+
                 this.get('toast').error({
-                    msg: `Unable to complete the setup of ${this.get('model.name')}, please try again later.`,
-                    title: 'That\'s not supposed to happen...',
-                })
+                    msg: this.get('i18n').t('setup.error.message', {provider: this.get('model.name')}),
+                    title: this.get('i18n').t('setup.error.title', {provider: this.get('model.name')}),
+                });
             });
         }
     }
