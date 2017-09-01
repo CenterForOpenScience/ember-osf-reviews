@@ -13,7 +13,7 @@ module.exports = function(defaults) {
     const JQUERY_VERSION = require('jquery/package.json').version;
 
     // Values chosen abritrarily, feel free to change
-    const LEAN_BUILD = ['test', 'production'].includes(EmberApp.env());
+    const LEAN_BUILD = ['production'].includes(EmberApp.env());
 
     // EmberApp.env() will pull from the envvar EMBER_ENV or the command line flags
     const config = configFunc(EmberApp.env());
