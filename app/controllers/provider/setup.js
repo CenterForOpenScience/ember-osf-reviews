@@ -25,7 +25,6 @@ export default Ember.Controller.extend({
     reviewsCommentsAnonymous: true,
 
     _t(key, tpl={}) {
-        tpl.provider = this.get('model.name');
         return this.get('i18n').t(`setup.settings.${key}`, tpl);
     },
 
@@ -67,8 +66,8 @@ export default Ember.Controller.extend({
                 this.get('model').rollbackAttributes();
 
                 this.get('toast').error({
-                    msg: this.get('i18n').t('setup.error.message', {provider: this.get('model.name')}),
-                    title: this.get('i18n').t('setup.error.title', {provider: this.get('model.name')}),
+                    msg: this.get('i18n').t('setup.error.message'),
+                    title: this.get('i18n').t('setup.error.title'),
                 });
             });
         }

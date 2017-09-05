@@ -1,28 +1,19 @@
 import Ember from 'ember';
 import config from 'ember-get-config';
+import { pluralize } from 'ember-inflector';
 
-/**
- * @module ember-osf-reviews
- * @submodule services
- */
 
-/**
- * Allows you to inject that provider's theme into parts of your application
- *
- * @class theme
- * @extends Ember.Service
- */
 export default Ember.Service.extend({
+    i18n: Ember.inject.service(),
     store: Ember.inject.service(),
-    session: Ember.inject.service(),
 
-    // If we're using a provider domain
-    isDomain: window.isProviderDomain,
+    provider: null,
 
-    // The id of the current provider
-    id: config.Reviews.defaultProvider,
+    id: Ember.computed.alias('provider.id'),
+    isLoaded: Ember.computed.empty('provider'),
+    isProvider: Ember.computed.not('isNotProvider'),
+    isNotProvider: Ember.computed.equal('provider.id', 'OSF'),
 
-    // The url to redirect users to sign up to
     signupUrl: Ember.computed('id', function() {
         const query = Ember.$.param({
             campaign: `${this.get('id')}-reviews`,
@@ -31,5 +22,26 @@ export default Ember.Service.extend({
 
         return `${config.OSF.url}register?${query}`;
     }),
+
+    onProviderLoad: Ember.observer('provider', function() {
+        this.get('i18n').addGlobals({
+            provider: {
+                name: this.get('provider.name'),
+                type: {
+                    singular: this.get('provider.preprintWord'),
+                    plural: pluralize(this.get('provider.preprintWord')),
+                    singularCapitalized: this.get('provider.preprintWord').capitalize(),
+                    pluralCapitalized: pluralize(this.get('provider.preprintWord')).capitalize(),
+                }
+            }
+        });
+    }),
+
+    loadProvider(id) {
+        return this.get('store').findRecord('preprint-provider', id.toLowerCase()).then(provider => {
+            this.set('provider', provider);
+            return provider
+        });
+    },
 
 });

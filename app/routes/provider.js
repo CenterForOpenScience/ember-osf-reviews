@@ -9,9 +9,11 @@ import Ember from 'ember';
  * @class Provider Route Handler
  */
 export default Ember.Route.extend({
+    theme: Ember.inject.service(),
+
     model(params) {
-        return this.store.findRecord('preprint-provider', params.provider_id.toLowerCase()).catch(() => {
-            this.replaceWith('page-not-found');
+        return this.get('theme').loadProvider(params.provider_id).catch(() => {
+            this.replaceWith('page-not-found')
         });
     },
     afterModel(model, transition) {

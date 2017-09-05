@@ -1,16 +1,9 @@
-const preprints = `{{preprintWords.Preprints}}`;
-const brand = `OSF Preprints`;
-
 export default {
     global: {
         cancel: `Cancel`,
         abstract: `Abstract`,
         doi: `DOI`,
         tags: `Tags`,
-        preprints,
-        brand,
-        brand_name: 'OSF',
-        provider_brand: `{{name}} {{preprintWords.Preprints}}`,
         title: `Title`,
         authors: `Authors`,
         license: 'License',
@@ -37,7 +30,7 @@ export default {
         },
         contact: {
             title: `Want to start a moderated service?`,
-            paragraph: `Create your own branded preprints servers backed by the OSF. Check out the open source code and the requirements and road map. Input welcome!`,
+            paragraph: `Create your own branded preprint servers backed by the OSF. Check out the open source code and the requirements and road map. Input welcome!`,
             contact_us: `Contact us`
         }
     },
@@ -55,11 +48,11 @@ export default {
         start: `Start Moderating`,
         which: `Which provider would you like to set up first?`,
         multiple_providers: `You're an Admin for Multiple Providers`,
-        choose_settings: `Choose moderation settings for {{provider}}`,
+        choose_settings: `Choose moderation settings for {{provider.name}}`,
         once_finalized: `Once finalized, moderation settings can only be changed by an OSF administrator.`,
         finalize: `Finalize Settings`,
         error: {
-            message: `Unable to complete the setup of {{provider}}. Please contact support@osf.io.`,
+            message: `Unable to complete the setup of {{provider.name}}. Please contact support@osf.io.`,
             title: `Something went wrong`,
         },
         settings: {
@@ -69,11 +62,11 @@ export default {
                 options: {
                     'pre-moderation': {
                         title: `Pre-moderation`,
-                        description: `All preprints are placed in a queue for a moderator to accept or reject. Preprints are displayed publicly only after approval.`,
+                        description: `All {{provider.type.plural}} are placed in a queue for a moderator to accept or reject. {{provider.type.pluralCapitalized}} are displayed publicly only after approval.`,
                     },
                     'post-moderation': {
                         title: `Post-moderation`,
-                        description: `All preprints are displayed publicly immediately upon submission. Preprints also appear in a queue for a moderator to accept or reject. If rejected, the preprint is no longer displayed publicly.`,
+                        description: `All {{provider.type.plural}} are displayed publicly immediately upon submission. {{provider.type.pluralCapitalized}} also appear in a queue for a moderator to accept or reject. If rejected, the {{provider.type.singular}} is no longer displayed publicly.`,
                     },
                 },
             },
@@ -83,11 +76,11 @@ export default {
                 options: {
                     true: {
                         title: `Moderators`,
-                        description: `Comments will be visible to {{provider}} moderators NOT contributors on the submission.`,
+                        description: `Comments will be visible to {{provider.name}} moderators NOT contributors on the submission.`,
                     },
                     false: {
                         title: `Moderators and Contributors`,
-                        description: `Comments will be visible to {{provider}} moderators AND contributors on the submission.`,
+                        description: `Comments will be visible to {{provider.name}} moderators AND contributors on the submission.`,
                     },
                 }
             },
