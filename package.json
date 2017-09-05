@@ -57,6 +57,7 @@
     "bootstrap-sass": "^3.3.7",
     "cssnano": "^3.10.0",
     "font-awesome": "^4.7.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "sass-lint": "^1.11.1"
   }
 }
