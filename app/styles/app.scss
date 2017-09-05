@@ -4,6 +4,10 @@
 @import 'variables';
 @import 'hint';
 
+body {
+    font-family: 'Helvetica Neue', 'Helvetica', sans-serif !important;
+}
+
 /* Override styles from ember-osf and osf */
 .footer {
   margin-top: 0;
@@ -69,7 +73,7 @@
     text-decoration: underline;
   }
   .btn-info {
-    color: #fff
+    color: #fff;
   }
 }
 
@@ -179,6 +183,12 @@
   border-bottom: 1px solid #d6dbdc;
 }
 
+#Tab .tab-content {
+  color : black;
+  background-color: white;
+  padding : 5px 15px;
+}
+
 #Tab h3 {
   color: #333333;
 }
@@ -235,4 +245,126 @@ li.active > a {
   padding: 70px 0 120px 0;
   background-color: #ecf2f3;
   border-bottom: 1px solid #d6dbdc;
+}
+
+.column-offset {
+  height: 120px;
+}
+
+
+/* Dashboard page */
+.reviews-dashboard {
+    background: $color-bg-cool-grey;
+}
+
+/* Dashboard header */
+.reviews-dashboard-header{
+    background: #214661 url('img/reviews-dashboard-bg.jpg') top center;
+    padding-top: 50px;
+    padding-bottom: 46px;
+}
+
+.review-log-feed {
+    padding: 20px 0;
+
+    .loading {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .more-logs {
+        margin-top: 30px;
+    }
+}
+
+.review-log-feed-entry {
+    clear: both;
+
+    .entry-body {
+        padding: 20px 15px;
+    }
+
+    :hover {
+        background: $color-bg-light-grey;
+        cursor: pointer;
+    }
+
+    .submit-icon {
+        color: $color-action-submit;
+    }
+    .accept-icon {
+        color: $color-action-accept;
+    }
+    .reject-icon {
+        color: $color-action-reject;
+    }
+    .edit-comment-icon {
+        color: $color-action-edit-comment;
+    }
+
+    .icon {
+        float: left;
+        font-size: 20px;
+    }
+
+    .log-date {
+        color: $color-text-light-grey;
+        font-size: 16px;
+        margin-left: 30px;
+    }
+
+    .log-heading {
+        color: $color-text-black;
+        font-size: 18px;
+        font-weight: bold;
+        margin-left: 30px;
+        line-height: 23px;
+    }
+
+    .log-detail {
+        color: $color-text-dark-grey;
+        font-size: 16px;
+        margin-left: 30px;
+    }
+}
+
+.dashboard-sidebar {
+    padding-top: 41px;
+
+    .sidebar-header {
+        font-size: 24px;
+        color: $color-text-black;
+        background: $color-bg-light-grey;
+        border: 1px solid $color-border-light-grey;
+        padding: 11px 0 16px 27px;
+    }
+
+    .sidebar-body {
+        background: white;
+        border: 1px solid $color-border-light-grey;
+        padding: 25px 29px;
+        font-size: 20px;
+
+        .moderation-enabled {
+            color: $color-text-black;
+        }
+
+        .moderation-disabled {
+            color: $color-text-light-grey;
+        }
+
+        .provider-links {
+            list-style-type: none;
+            padding-left: 14px;
+        }
+
+        .provider-name {
+            font-weight: bold;
+        }
+    }
+}
+
+// Opaque toast notifications
+.toast {
+    opacity: 1 !important;
 }

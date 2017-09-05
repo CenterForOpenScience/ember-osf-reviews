@@ -50,5 +50,22 @@ export default {
         details: `The page you were looking for is not found on the OSF Reviews service.`,
         report: `If this should not have occurred and the issue persists, please report it to`,
         go_to: `Go to OSF Reviews`
-    }
+    },
+    dashboard: {
+        title: `Reviews Dashboard`,
+        log_message: {
+            submit: `submitted a {{document}} to {{provider}}`,
+            accept: `accepted a {{document}} in {{provider}}`,
+            reject: `rejected a {{document}} from {{provider}}`,
+            edit_comment: `edited the comment for a {{document}} in {{provider}}`,
+        },
+        see_more: `See more`,
+        error_loading: `Error fetching more events`,
+        sidebar: {
+            providers: `Providers`,
+            moderation: `Moderation`,
+            settings: `Settings`,
+            set_up: `Set up moderation`,
+        },
+    },
 };
