@@ -24,15 +24,12 @@ export default Ember.Service.extend({
     }),
 
     onProviderLoad: Ember.observer('provider', function() {
+        const locale = Ember.getOwner(this).factoryFor(`locale:${this.get('i18n.locale')}/translations`).class;
+
         this.get('i18n').addGlobals({
             provider: {
                 name: this.get('provider.name'),
-                type: {
-                    singular: this.get('provider.preprintWord'),
-                    plural: pluralize(this.get('provider.preprintWord')),
-                    singularCapitalized: this.get('provider.preprintWord').capitalize(),
-                    pluralCapitalized: pluralize(this.get('provider.preprintWord')).capitalize(),
-                }
+                type: Ember.get(locale, `documentType.${this.get('provider.preprintWord')}`),
             }
         });
     }),

@@ -10,6 +10,14 @@ export default {
         pre_moderation: `pre-moderation`,
         post_moderation: `post-moderation`,
     },
+    documentType: {
+        preprint: {
+            pluralCapitalized: `Preprints`,
+            plural: `preprints`,
+            singluar: `preprint`,
+            singularCapitalized: `Preprint`,
+        }
+    },
     index: {
         feature: {
             title: `Moderate your collection`,
