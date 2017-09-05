@@ -3,8 +3,4 @@ files:
     - 'app/styles/**/*.s+(a|c)ss'
     - 'app/components/**/*.s+(a|c)ss'
 options:
-  # max-warnings: 50
-  indentation:
-    - 2
-    -
-      size: 2
+  indentation: [2, {size: 4}]
