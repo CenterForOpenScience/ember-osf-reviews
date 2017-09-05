@@ -60,15 +60,15 @@ export default Ember.Controller.extend({
                 this.set(`model.${setting.name}`, this.get(setting.name));
             });
 
-            this.get('model').save().then(() => {
-                return this.transitionToRoute('provider', this.get('model'));
-            }).catch(() => {
+            this.get('model').save().catch(() => {
                 this.get('model').rollbackAttributes();
 
-                this.get('toast').error({
-                    msg: this.get('i18n').t('setup.error.message'),
-                    title: this.get('i18n').t('setup.error.title'),
-                });
+                this.get('toast').error(
+                    this.get('i18n').t('setup.error.message').toString(),
+                    this.get('i18n').t('setup.error.title').toString()
+                );
+            }).then(() => {
+                return this.transitionToRoute('preprints.provider', this.get('model'));
             });
         }
     }

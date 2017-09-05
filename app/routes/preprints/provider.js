@@ -17,6 +17,6 @@ export default Ember.Route.extend({
         });
     },
     afterModel(model, transition) {
-        if (!model.get('reviewsWorkflow') && transition.targetName !== 'provider.setup') return this.replaceWith('provider.setup', model);
+        if (!model.get('reviewsWorkflow') && transition.targetName !== 'preprints.provider.setup') return this.replaceWith('preprints.provider.setup', model);
     }
 });

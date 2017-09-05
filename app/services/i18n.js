@@ -5,12 +5,12 @@ export default I18nService.extend({
     _globals: {},
 
     t(key, data = {}) {
-        data = Ember.merge(data, this.get('_globals'));
+        data = Ember.merge(this.get('_globals'), data);
         return this._super(key, data);
     },
 
     addGlobal(key, value) {
-        this.set(`globals.${key}`, value);
+        this.set(`_globals.${key}`, value);
     },
 
     addGlobals(globals) {

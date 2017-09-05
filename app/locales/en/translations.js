@@ -94,7 +94,7 @@ export default {
             },
             reviewsCommentsAnonymous: {
                 title: `Moderator Comments`,
-                description: `If moderator comments are visible to contributors, the moderator’s name can can be displayed or hidden from the contributors.`,
+                description: `If moderator's comments are visible to contributors, the moderator's name can can be displayed or hidden from the contributors.`,
                 options: {
                     true: {
                         title: `Anonymized Comments`,

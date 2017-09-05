@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
 
     actions: {
         setupProvider(provider) {
-            this.transitionToRoute('provider.setup', provider);
+            this.transitionToRoute('preprints.provider.setup', provider);
         }
     }
 });

@@ -16,8 +16,8 @@ export default Ember.Component.extend({
     theme: Ember.inject.service(),
     tabs: Ember.computed('i18n.locale', function(){
         return [
-            { name: this.get('i18n').t('moderation_base.moderation_tab'), route: 'provider.moderation'},
-            { name: this.get('i18n').t('moderation_base.settings_tab'), route: 'provider.settings'},
+            { name: this.get('i18n').t('moderation_base.moderation_tab'), route: 'preprints.provider.moderation'},
+            { name: this.get('i18n').t('moderation_base.settings_tab'), route: 'preprints.provider.settings'},
         ]}),
     breadCrumbs: Ember.computed('navigator.currentPath', function(){
         let crumbs = this.get('navigator.currentPath').split('.');

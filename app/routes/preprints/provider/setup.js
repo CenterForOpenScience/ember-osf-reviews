@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
     afterModel(model/*, transition */) {
-        if (model.get('reviewsWorkflow')) return this.replaceWith('provider', model);
+        if (model.get('reviewsWorkflow')) return this.replaceWith('preprints.provider', model);
     },
     renderTemplate(controller, model) {
         // We're a special page.
