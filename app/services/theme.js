@@ -27,6 +27,7 @@ export default Ember.Service.extend({
 
         this.get('i18n').addGlobals({
             provider: {
+                id: this.get('provider.id'),
                 name: this.get('provider.name'),
                 type: Ember.get(locale, `documentType.${this.get('provider.preprintWord')}`),
             }

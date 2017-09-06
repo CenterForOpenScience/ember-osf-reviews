@@ -1,1 +1,24 @@
-{{outlet}}
+<div class="reviews-settings">
+    <div class="text-bigger alert alert-warning text-center">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        {{t "settings.not_editable"}}
+    </div>
+
+    <div class="container">
+        <form class="row m-t-lg">
+            {{#each providerSettings as |setting|}}
+                {{#form-block title=setting.title description=setting.description disabled=setting.disabled}}
+                    {{#each setting.options as |option|}}
+                        {{form-block-radiobutton
+                        title=option.title
+                        description=option.description
+                        name=setting.attributeName
+                        value=option.value
+                        attribute=(get model setting.attributeName)
+                        }}
+                    {{/each}}
+                {{/form-block}}
+            {{/each}}
+        </form>
+    </div>
+</div>

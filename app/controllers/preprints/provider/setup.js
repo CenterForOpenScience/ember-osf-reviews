@@ -1,18 +1,5 @@
 import Ember from 'ember';
-
-const PROVIDER_SETTINGS = [{
-    disabled: false,
-    name: 'reviewsWorkflow',
-    options: ['pre-moderation', 'post-moderation']
-}, {
-    disabled: false,
-    name: 'reviewsCommentsPrivate',
-    options: [true, false],
-}, {
-    disabled: true,
-    name: 'reviewsCommentsAnonymous',
-    options: [true, false],
-}];
+import ENV from 'reviews/config/environment';
 
 
 export default Ember.Controller.extend({
@@ -25,7 +12,7 @@ export default Ember.Controller.extend({
     reviewsCommentsAnonymous: true,
 
     _t(key, tpl={}) {
-        return this.get('i18n').t(`setup.settings.${key}`, tpl);
+        return this.get('i18n').t(`provider_settings.${key}`, tpl);
     },
 
     _buildOption(setting, option) {
@@ -47,7 +34,7 @@ export default Ember.Controller.extend({
     },
 
     providerSettings: Ember.computed('model', function() {
-        return PROVIDER_SETTINGS.map(this._buildSetting.bind(this));
+        return ENV.PROVIDER_SETTINGS.map(this._buildSetting.bind(this));
     }),
 
     actions: {
@@ -56,7 +43,7 @@ export default Ember.Controller.extend({
             return false;
         },
         submit() {
-            PROVIDER_SETTINGS.forEach(setting => {
+            ENV.PROVIDER_SETTINGS.forEach(setting => {
                 this.set(`model.${setting.name}`, this.get(setting.name));
             });
 

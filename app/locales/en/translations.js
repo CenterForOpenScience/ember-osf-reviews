@@ -61,6 +61,53 @@ export default {
         report: `If this should not have occurred and the issue persists, please report it to`,
         go_to: `Go to OSF Reviews`
     },
+    provider_settings: {
+        reviewsWorkflow: {
+            title: `Moderation Type`,
+            description: ``,
+            options: {
+                'pre-moderation': {
+                    title: `Pre-moderation`,
+                    description: `All {{provider.type.plural}} are placed in a queue for a moderator to accept or reject. {{provider.type.pluralCapitalized}} are displayed publicly only after approval.`,
+                },
+                'post-moderation': {
+                    title: `Post-moderation`,
+                    description: `All {{provider.type.plural}} are displayed publicly immediately upon submission. {{provider.type.pluralCapitalized}} also appear in a queue for a moderator to accept or reject. If rejected, the {{provider.type.singular}} is no longer displayed publicly.`,
+                },
+            },
+        },
+        reviewsCommentsPrivate: {
+            title: `Comment Visibility`,
+            description: `Moderators can add comments when making a decision about a submission.`,
+            options: {
+                true: {
+                    title: `Moderators`,
+                    description: `Comments will be visible to {{provider.name}} moderators NOT contributors on the submission.`,
+                },
+                false: {
+                    title: `Moderators and Contributors`,
+                    description: `Comments will be visible to {{provider.name}} moderators AND contributors on the submission.`,
+                },
+            }
+        },
+        reviewsCommentsAnonymous: {
+            title: `Moderator Comments`,
+            description: `If moderator's comments are visible to contributors, the moderator's name can can be displayed or hidden from the contributors.`,
+            options: {
+                true: {
+                    title: `Anonymized Comments`,
+                    description: `All comments will be visible to the contributors of the submission, but the moderators name will not be displayed.`,
+                },
+                false: {
+                    title: `Named Comments`,
+                    description: `All comments will be visible to the contributors of the submission and the moderator’s OSF profile name will be displayed.`,
+                },
+            }
+        }
+    },
+    settings: {
+        not_editable: `Moderation settings can only be changed by an OSF administrator. Contact support+{{provider.id}}@osf.io for assistance.`
+    },
     setup: {
         start: `Start Moderating`,
         which: `Which provider would you like to set up first?`,
@@ -72,50 +119,6 @@ export default {
             message: `Unable to complete the setup of {{provider.name}}. Please contact support@osf.io.`,
             title: `Something went wrong`,
         },
-        settings: {
-            reviewsWorkflow: {
-                title: `Moderation Type`,
-                description: ``,
-                options: {
-                    'pre-moderation': {
-                        title: `Pre-moderation`,
-                        description: `All {{provider.type.plural}} are placed in a queue for a moderator to accept or reject. {{provider.type.pluralCapitalized}} are displayed publicly only after approval.`,
-                    },
-                    'post-moderation': {
-                        title: `Post-moderation`,
-                        description: `All {{provider.type.plural}} are displayed publicly immediately upon submission. {{provider.type.pluralCapitalized}} also appear in a queue for a moderator to accept or reject. If rejected, the {{provider.type.singular}} is no longer displayed publicly.`,
-                    },
-                },
-            },
-            reviewsCommentsPrivate: {
-                title: `Comment Visibility`,
-                description: `Moderators can add comments when making a decision about a submission.`,
-                options: {
-                    true: {
-                        title: `Moderators`,
-                        description: `Comments will be visible to {{provider.name}} moderators NOT contributors on the submission.`,
-                    },
-                    false: {
-                        title: `Moderators and Contributors`,
-                        description: `Comments will be visible to {{provider.name}} moderators AND contributors on the submission.`,
-                    },
-                }
-            },
-            reviewsCommentsAnonymous: {
-                title: `Moderator Comments`,
-                description: `If moderator's comments are visible to contributors, the moderator's name can can be displayed or hidden from the contributors.`,
-                options: {
-                    true: {
-                        title: `Anonymized Comments`,
-                        description: `All comments will be visible to the contributors of the submission, but the moderators name will not be displayed.`,
-                    },
-                    false: {
-                        title: `Named Comments`,
-                        description: `All comments will be visible to the contributors of the submission and the moderator’s OSF profile name will be displayed.`,
-                    },
-                }
-            }
-        }
     },
     dashboard: {
         title: `Reviews Dashboard`,

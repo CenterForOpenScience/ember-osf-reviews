@@ -32,22 +32,22 @@ module.exports = function(environment) {
         moment: {
             outputFormat: 'YYYY-MM-DD hh:mm a'
         },
-        Reviews: {
-            defaultProvider: 'osf'
-        },
         i18n: {
             defaultLocale: 'en'
         },
-        metricsAdapters: [
-            {
-                name: 'GoogleAnalytics',
-                environments: ['all'],
-                config: {
-                    id: process.env.GOOGLE_ANALYTICS_ID
-                }
-            }
-        ],
-        FB_APP_ID: process.env.FB_APP_ID,
+        PROVIDER_SETTINGS: [{
+            disabled: false,
+            name: 'reviewsWorkflow',
+            options: ['pre-moderation', 'post-moderation']
+        }, {
+            disabled: false,
+            name: 'reviewsCommentsPrivate',
+            options: [true, false],
+        }, {
+            disabled: true,
+            name: 'reviewsCommentsAnonymous',
+            options: [true, false],
+        }],
     };
 
     if (environment === 'development') {
