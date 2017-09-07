@@ -8,7 +8,7 @@ export default SetupController.extend({
         res.forEach(setting => (setting.disabled = true));
         // Don't show anon comments settings if comments are private
         if (this.get('model.reviewsCommentsPrivate')) {
-            res.slice(1, 2);
+            return res.slice(0, 2);
         }
         return res;
     }),
