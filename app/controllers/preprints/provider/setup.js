@@ -33,8 +33,11 @@ export default Ember.Controller.extend({
         };
     },
 
-    providerSettings: Ember.computed('model', function() {
-        return ENV.PROVIDER_SETTINGS.map(this._buildSetting.bind(this));
+    providerSettings: Ember.computed('model', 'reviewsCommentsPrivate', function() {
+        let settings = ENV.PROVIDER_SETTINGS.map(this._buildSetting.bind(this));
+        // Tie anon comments to private comments
+        settings[2].disabled = this.get('reviewsCommentsPrivate');
+        return settings;
     }),
 
     actions: {
@@ -46,6 +49,12 @@ export default Ember.Controller.extend({
             ENV.PROVIDER_SETTINGS.forEach(setting => {
                 this.set(`model.${setting.name}`, this.get(setting.name));
             });
+
+            // Ignore the value of anon comments if private comments
+            // are enabled
+            if (this.get('reviewsCommentsPrivate')) {
+                this.set('reviewsCommentsAnonymous', true);
+            }
 
             this.get('model').save().catch(() => {
                 this.get('model').rollbackAttributes();
