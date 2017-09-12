@@ -1,0 +1,19 @@
+{{#if contributors.isPending}}
+    <div class="ball-pulse">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+{{else}}
+    {{#each bibliographicContributors as |contributor| ~}}
+        <li>
+            {{#if contributor.unregisteredContributor}}
+                {{contributor.unregisteredContributor}}
+            {{else}}
+                <a href={{contributor.users.profileURL}}>
+                    {{contributor.users.givenName}} {{contributor.users.familyName}}
+                </a>
+            {{/if}}
+        </li>
+    {{~/each}}
+{{/if}}

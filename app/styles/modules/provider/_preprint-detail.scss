@@ -1,0 +1,14 @@
+section.preprint-license {
+  span {
+    cursor: pointer;
+  }
+
+  pre {
+    border: none;
+    font-size: 75%;
+    max-height: 300px;
+    text-align: justify;
+    white-space: pre-wrap;
+    width: 100%;
+  }
+}

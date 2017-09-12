@@ -50,7 +50,6 @@
     "eslint": "^4.4.1",
     "loader.js": "^4.2.3",
     "sass-lint": "^1.11.1",
-    "toastr": "^2.1.2",
     "ui-navigator-service": "^0.3.11"
   },
   "engines": {
@@ -64,6 +63,7 @@
     "cssnano": "^3.10.0",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.4",
-    "pagination-pager": "^3.0.0"
+    "pagination-pager": "^3.0.0",
+    "toastr": "^2.1.2"
   }
 }

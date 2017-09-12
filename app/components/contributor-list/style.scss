@@ -1,0 +1,20 @@
+& {
+  display: inline;
+  list-style: none;
+  padding-left: 0;
+  color: white;
+
+  li {
+    display: inline;
+  }
+  li:after {
+    content: ", "
+  }
+  li:last-child:after {
+    content: "";
+  }
+
+  a {
+    color: #6dd1de;
+  }
+}
