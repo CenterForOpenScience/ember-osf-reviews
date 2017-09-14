@@ -29,7 +29,7 @@
                             {{t "content.private_preprint_warning"}} <a href={{node.links.html}}>{{node.title}} </a> {{t "content.public"}}.
                         </div>
                     {{/if}}
-                    {{supplementary-file-browser chosenFile=chosenFile preprint=model node=node projectURL=node.links.html chooseFile=(action 'chooseFile')}}
+                    {{preprint-file-browser primaryFile=model.primaryFile preprint=model chooseFile=(action 'chooseFile')}}
                     <button class="expand-mfr-carrot hidden-xs hidden-sm" {{action 'expandMFR'}}>
                         <i class="fa fa-chevron-{{if fullScreenMFR 'left' 'right'}}"></i>
                     </button>

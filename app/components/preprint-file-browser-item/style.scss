@@ -1,0 +1,37 @@
+& {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  border: 1px solid #eee;
+  padding: 13px;
+  cursor: pointer;
+
+  i.fa-file-text {
+    color: grey;
+  }
+
+  &.primary i.fa-file-text {
+    color: #333
+  }
+
+  p {
+    font-size: 75%;
+    margin: 0;
+  }
+
+  &.selected:before{
+    content: "";
+    position: absolute;
+    z-index: 1;
+    border: solid 10px transparent;
+    border-top-color: #578ca2;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 0;
+    height: 0;
+    top: 0;
+  }
+}
