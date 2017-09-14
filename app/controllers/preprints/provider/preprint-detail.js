@@ -117,8 +117,7 @@ export default Ember.Controller.extend({
                 .then(() => {
                     // this.get('model.reviewLogs').insertAt(0, log);
                     // "I have an idea; let's make arrays not work like arrays" - Ember-Data
-                    this.get('model.reviewLogs.content').destroy();
-                    debugger;
+                    // this.get('model.reviewLogs.content').destroy();
                     this.transitionToRoute(`preprints.provider.moderation`);
                 })
                 .catch(() => {

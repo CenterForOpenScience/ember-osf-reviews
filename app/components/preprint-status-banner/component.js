@@ -111,7 +111,6 @@ export default Ember.Component.extend({
 
     init() {
         this.get('submission.reviewLogs').then(reviewLogs => {
-            debugger;
             let log = reviewLogs.get('firstObject');
             log.get('creator').then(user => {
                 this.set('creatorName', user.get('fullName'));

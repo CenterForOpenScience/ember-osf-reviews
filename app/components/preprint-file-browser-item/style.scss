@@ -4,16 +4,16 @@
   flex-direction: column;
   justify-content: flex-start;
 
-  border: 1px solid #eee;
+  border: 1px solid $gray-lighter;
   padding: 13px;
   cursor: pointer;
 
   i.fa-file-text {
-    color: grey;
+    color: gray;
   }
 
   &.primary i.fa-file-text {
-    color: #333
+    color: $gray-dark;
   }
 
   p {
@@ -26,7 +26,7 @@
     position: absolute;
     z-index: 1;
     border: solid 10px transparent;
-    border-top-color: #578ca2;
+    border-top-color: $theme-color-dark;
     left: 0;
     right: 0;
     margin: 0 auto;
