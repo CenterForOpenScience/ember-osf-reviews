@@ -22,7 +22,7 @@ export default Ember.Route.extend({
         didTransition() {
             // TODO: make this less hacky
             // force the provider to reload on page transitions so statusCounts update
-            this.controller.get('model').reload();
+            this.refresh();
         }
     }
 });
