@@ -1,6 +1,6 @@
-import Base from '../../base'
+import Ember from 'ember';
 
-export default Base.extend({
+export default Ember.Route.extend({
     model() {
         return this.modelFor('preprints.provider');
     },

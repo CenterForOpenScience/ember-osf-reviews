@@ -1,4 +1,3 @@
-
 import { decrementValue } from 'reviews/helpers/decrement-value';
 import { module, test } from 'qunit';
 
