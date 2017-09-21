@@ -1,4 +1,4 @@
-import Base from '../../base'
+import Base from '../../base';
 
 export default Base.extend({
     model() {

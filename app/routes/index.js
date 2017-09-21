@@ -6,13 +6,13 @@ export default Ember.Route.extend({
     store: Ember.inject.service(),
 
     queryParams: {
-        page: { refreshModel: true }
+        page: { refreshModel: true },
     },
 
     model(params) {
         const emptyModels = {
             providers: [],
-            actionsList: []
+            actionsList: [],
         };
 
         if (!this.get('session.isAuthenticated')) {
@@ -20,13 +20,13 @@ export default Ember.Route.extend({
         }
         return Ember.RSVP.hash({
             providers: this.get('store').query('preprint-provider', {
-                'filter[permissions]': 'view_actions,set_up_moderation'
+                'filter[permissions]': 'view_actions,set_up_moderation',
             }),
-            actionsList: this.get('currentUser.user').then(user => {
+            actionsList: this.get('currentUser.user').then((user) => {
                 return user.query('actions', { page: params.page, include: 'target,provider' });
             }),
         }).catch(() => {
-             return emptyModels;
-        });  // On any error, assume no permissions to anything.
+            return emptyModels;
+        }); // On any error, assume no permissions to anything.
     },
 });

@@ -34,6 +34,6 @@ export default Ember.Component.extend({
         cancel() {
             this.set('disabled', false);
             this.set('choiceRequired', false);
-        }
-    }
+        },
+    },
 });

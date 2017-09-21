@@ -8,10 +8,10 @@ export default Ember.Component.extend({
     iconClass: {
         accepted: 'fa-check-circle-o accepted',
         pending: 'fa-hourglass-o pending',
-        rejected: 'fa-times-circle-o rejected'
+        rejected: 'fa-times-circle-o rejected',
     },
 
-    //translations
+    // translations
     submittedOnLabel: 'components.moderation-list-row.submission.submitted_on',
     submittedByLabel: 'components.moderation-list-row.submission.by',
 });

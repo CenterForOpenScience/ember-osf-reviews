@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {ArrayPromiseProxy, loadRelation} from 'ember-osf/utils/load-relationship';
+import { ArrayPromiseProxy, loadRelation } from 'ember-osf/utils/load-relationship';
 
 const PAGE_SIZE = 6;
 
@@ -24,14 +24,14 @@ export default Ember.Component.extend({
     }),
 
     files: Ember.computed('preprint', function() {
-        let promise = this.getWithDefault('preprint.node.files', new Ember.RSVP.Promise(() => null))
+        const promise = this.getWithDefault('preprint.node.files', new Ember.RSVP.Promise(() => null))
             .then(providers => providers.findBy('name', 'osfstorage'))
             .then(provider => loadRelation(provider, 'files'));
-        return ArrayPromiseProxy.create({promise});
+        return ArrayPromiseProxy.create({ promise });
     }),
 
     page: Ember.computed('files.[]', 'pageNumber', function() {
-        let offset = this.get('pageNumber') * PAGE_SIZE;
+        const offset = this.get('pageNumber') * PAGE_SIZE;
         return this.get('files').slice(offset, offset + PAGE_SIZE);
     }),
 

@@ -4,8 +4,8 @@ import permissions from 'ember-osf/const/permissions';
 
 const DATE_LABEL = {
     created: 'content.date_label.created_on',
-    submitted: 'content.date_label.submitted_on'
-}
+    submitted: 'content.date_label.submitted_on',
+};
 const PRE_MODERATION = 'pre-moderation';
 
 /**
@@ -43,23 +43,23 @@ export default Ember.Controller.extend({
         },
         set(key, value) {
             return this.set('_activeFile', value);
-        }
+        },
     }),
 
     fileDownloadURL: Ember.computed('model', function() {
-        const {location: {origin}} = window;
+        const { location: { origin } } = window;
         return [
             origin,
             this.get('theme.isSubRoute') ? `preprints/${this.get('theme.id')}` : null,
             this.get('model.id'),
-            'download'
+            'download',
         ].filter(part => !!part).join('/');
     }),
 
     actionDateLabel: Ember.computed('model.provider.reviewsWorkflow', function() {
         return this.get('model.provider.reviewsWorkflow') === PRE_MODERATION ?
-            DATE_LABEL['submitted'] :
-            DATE_LABEL['created'];
+            DATE_LABEL.submitted :
+            DATE_LABEL.created;
     }),
 
     isAdmin: Ember.computed('node', function() {
@@ -98,15 +98,15 @@ export default Ember.Controller.extend({
         chooseFile(fileItem) {
             this.setProperties({
                 chosenFile: fileItem.get('id'),
-                activeFile: fileItem
+                activeFile: fileItem,
             });
         },
         submitDecision(trigger, comment, filter) {
             this.toggleProperty('savingAction');
 
-            let action = this.store.createRecord('action', {
-               actionTrigger: trigger,
-               target: this.get('model'),
+            const action = this.store.createRecord('action', {
+                actionTrigger: trigger,
+                target: this.get('model'),
             });
 
             if (comment) {
@@ -116,12 +116,12 @@ export default Ember.Controller.extend({
             return action.save()
                 .then(() => {
                     this.toggleProperty('savingAction');
-                    this.transitionToRoute(`preprints.provider.moderation`, { queryParams: { status: filter}});
+                    this.transitionToRoute('preprints.provider.moderation', { queryParams: { status: filter } });
                 })
                 .catch(() => {
                     this.toggleProperty('savingAction');
                     return this.get('toast')
-                        .error(this.get('i18n').t(`components.preprint-status-banner.error`));
+                        .error(this.get('i18n').t('components.preprint-status-banner.error'));
                 });
         },
     },

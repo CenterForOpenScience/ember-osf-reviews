@@ -16,7 +16,7 @@ export default Ember.Service.extend({
     signupUrl: Ember.computed('id', function() {
         const query = Ember.$.param({
             campaign: `${this.get('id')}-reviews`,
-            next: window.location.href
+            next: window.location.href,
         });
 
         return `${config.OSF.url}register?${query}`;
@@ -30,14 +30,14 @@ export default Ember.Service.extend({
                 id: this.get('provider.id'),
                 name: this.get('provider.name'),
                 type: Ember.get(locale, `documentType.${this.get('provider.preprintWord')}`),
-            }
+            },
         });
     }),
 
     loadProvider(id) {
-        return this.get('store').findRecord('preprint-provider', id.toLowerCase(), {reload: true, backgroundReload: false, adapterOptions: {query: {related_counts: true}}}).then(provider => {
+        return this.get('store').findRecord('preprint-provider', id.toLowerCase(), { reload: true, backgroundReload: false, adapterOptions: { query: { related_counts: true } } }).then((provider) => {
             this.set('provider', provider);
-            return provider
+            return provider;
         });
     },
 

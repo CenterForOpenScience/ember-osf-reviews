@@ -18,15 +18,15 @@ export default Ember.Controller.extend(OSFAgnosticAuthControllerMixin, {
 
     init() {
         document.styleSheets[0].addRule(
-            atob(config['ember-analytics']['appID']),
-            atob(config['ember-analytics']['clientID'])
+            atob(config['ember-analytics'].appID),
+            atob(config['ember-analytics'].clientID),
         );
         // Hack to make the Add Preprint button work.
         this.get('i18n').addGlobals({
             preprintWords: {
                 preprint: this.get('i18n').t('documentType.preprint.singularCapitalized'),
-            }
+            },
         });
         this._super(...arguments);
-    }
+    },
 });

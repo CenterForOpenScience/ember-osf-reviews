@@ -18,5 +18,5 @@ export default Ember.Controller.extend({
             this.set('sort', sort);
             this.set('page', 1);
         },
-    }
+    },
 });

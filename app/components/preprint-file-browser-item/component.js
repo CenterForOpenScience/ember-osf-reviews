@@ -19,11 +19,11 @@ const PreprintFileBrowserItem = Ember.Component.extend({
     click() {
         if (!this.attrs.selectFile) return;
         this.attrs.selectFile(this.get('file'));
-    }
+    },
 });
 
 PreprintFileBrowserItem.reopenClass({
-    positionalParams: ['file']
+    positionalParams: ['file'],
 });
 
-export default PreprintFileBrowserItem
+export default PreprintFileBrowserItem;

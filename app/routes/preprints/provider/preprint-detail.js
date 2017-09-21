@@ -1,12 +1,12 @@
 import Ember from 'ember';
-import Base from '../../base'
+import Base from '../../base';
 
 export default Base.extend({
     theme: Ember.inject.service(),
     currentUser: Ember.inject.service(),
 
     model(params) {
-        return this.store.findRecord('preprint', params.preprint_id, {include: ['node', 'provider', 'license', 'actions']});
+        return this.store.findRecord('preprint', params.preprint_id, { include: ['node', 'provider', 'license', 'actions'] });
     },
 
     renderTemplate(controller, model) {
@@ -22,7 +22,7 @@ export default Base.extend({
     setupController() {
         Ember.run.scheduleOnce('afterRender', this, function() {
             if (!MathJax) return;
-            MathJax.Hub.Queue(['Typeset', MathJax.Hub, [Ember.$('.abstract')[0], Ember.$('#preprintTitle')[0]]]);  // jshint ignore:line
+            MathJax.Hub.Queue(['Typeset', MathJax.Hub, [Ember.$('.abstract')[0], Ember.$('#preprintTitle')[0]]]); // jshint ignore:line
         });
 
         return this._super(...arguments);
@@ -34,5 +34,5 @@ export default Base.extend({
                 return this.intermediateTransitionTo('page-not-found');
             }
         },
-    }
+    },
 });

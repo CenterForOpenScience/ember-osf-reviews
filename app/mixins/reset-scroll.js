@@ -13,8 +13,8 @@ import Ember from 'ember';
  */
 export default Ember.Mixin.create({
     scrollTarget: window,
-    activate: function() {
+    activate() {
         this._super();
         return this.get('scrollTarget').scrollTo(0, 0);
-    }
+    },
 });

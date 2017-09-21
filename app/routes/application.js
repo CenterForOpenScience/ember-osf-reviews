@@ -12,13 +12,13 @@ import OSFAgnosticAuthRouteMixin from 'ember-osf/mixins/osf-agnostic-auth-route'
  */
 export default Ember.Route.extend(OSFAgnosticAuthRouteMixin, {
     i18n: Ember.inject.service(),
-    afterModel: function() {
+    afterModel() {
         const availableLocales = this.get('i18n.locales').toArray();
         let locale;
 
         if (navigator.languages && navigator.languages.length) {
             // Works in Chrome and Firefox (editable in settings)
-            for (let lang of navigator.languages) {
+            for (const lang of navigator.languages) {
                 if (availableLocales.includes(lang)) {
                     locale = lang;
                     break;
@@ -32,5 +32,5 @@ export default Ember.Route.extend(OSFAgnosticAuthRouteMixin, {
         if (locale) {
             this.set('i18n.locale', locale);
         }
-    }
+    },
 });

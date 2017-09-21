@@ -3,5 +3,5 @@
 // for a locale or define behavior for a locale that Ember-I18n
 // doesn't know about.
 export default {
-  rtl: false
+    rtl: false,
 };

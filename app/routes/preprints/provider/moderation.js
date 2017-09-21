@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Base from '../../base'
+import Base from '../../base';
 /**
  * @module ember-osf-reviews
  * @submodule routes
@@ -14,7 +14,7 @@ export default Base.extend({
     queryParams: {
         sort: { refreshModel: true },
         status: { refreshModel: true },
-        page: { refreshModel: true }
+        page: { refreshModel: true },
     },
 
     model(params) {
@@ -23,7 +23,7 @@ export default Base.extend({
             'filter[reviews_state]': params.status,
             'meta[reviews_state_counts]': true,
             sort: params.sort,
-            page: params.page
+            page: params.page,
         }).then((results) => {
             return {
                 submissions: results.toArray(),
@@ -40,11 +40,11 @@ export default Base.extend({
 
     actions: {
         loading(transition) {
-            let controller = this.controllerFor('preprints.provider.moderation');
+            const controller = this.controllerFor('preprints.provider.moderation');
             controller.set('loading', true);
             transition.promise.finally(function() {
                 controller.set('loading', false);
             });
         },
-    }
+    },
 });

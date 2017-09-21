@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Base from '../base'
+import Base from '../base';
 
 /**
  * @module ember-osf-reviews
@@ -14,7 +14,7 @@ export default Base.extend({
 
     model(params) {
         return this.get('theme').loadProvider(params.provider_id).catch(() => {
-            this.replaceWith('page-not-found')
+            this.replaceWith('page-not-found');
         });
     },
 
