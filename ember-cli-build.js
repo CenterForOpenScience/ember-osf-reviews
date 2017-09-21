@@ -1,14 +1,17 @@
 /* eslint-env node */
 
-
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const Funnel = require('broccoli-funnel');
+
+const AutoPrefixer = require('autoprefixer');
+const CSSNano = require('cssnano');
+const JQueryPackage = require('jquery/package.json');
 
 
 module.exports = function(defaults) {
     // const EMBER_DATA_VERSION = defaults.project.addonPackages['ember-data'].pkg.version;
     const EMBER_VERSION = defaults.project.addonPackages['ember-source'].pkg.version;
-    const JQUERY_VERSION = require('jquery/package.json').version;
+    const JQUERY_VERSION = JQueryPackage.version;
 
     // Values chosen abritrarily, feel free to change
     const LEAN_BUILD = ['production'].includes(EmberApp.env());
@@ -82,9 +85,9 @@ module.exports = function(defaults) {
                 enabled: LEAN_BUILD,
                 include: ['**/*.css'],
                 plugins: [{
-                    module: require('autoprefixer'),
+                    module: AutoPrefixer,
                 }, {
-                    module: require('cssnano'),
+                    module: CSSNano,
                 }],
             },
         },

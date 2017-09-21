@@ -46,7 +46,7 @@ export default Ember.Component.extend({
         return ICONS[this.get('action.actionTrigger')];
     }),
 
-    message: Ember.computed('action.actionTrigger', 'action.provider', function() {
+    message: Ember.computed('action.{actionTrigger,provider}', function() {
         const i18n = this.get('i18n');
         return i18n.t(`components.action-feed-entry.action_message.${this.get('action.actionTrigger')}`, {
             providerName: this.get('action.provider.name'),

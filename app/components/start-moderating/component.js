@@ -9,8 +9,13 @@ export default Ember.Component.extend({
     disabled: false,
     choiceRequired: false,
 
-    providers: [],
+    providers: null,
     selectedProvider: null,
+
+    init() {
+        this._super(...arguments);
+        this.set('providers', []);
+    },
 
     click() {
         if (this.get('providers.length') > 1) {

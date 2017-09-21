@@ -13,7 +13,7 @@ export default Ember.Component.extend({
     attribute: null,
 
     checked: Ember.computed('attribute', 'value', function() {
-        return this.get('value') == this.get('attribute') ? 'checked' : null;
+        return this.get('value') === this.get('attribute') ? 'checked' : null;
     }),
 
     click(event) {

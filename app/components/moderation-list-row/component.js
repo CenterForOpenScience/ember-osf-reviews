@@ -5,11 +5,13 @@ export default Ember.Component.extend({
 
     classNames: ['moderation-list-row'],
 
-    iconClass: {
-        accepted: 'fa-check-circle-o accepted',
-        pending: 'fa-hourglass-o pending',
-        rejected: 'fa-times-circle-o rejected',
-    },
+    iconClass: Ember.computed(function() {
+        return {
+            accepted: 'fa-check-circle-o accepted',
+            pending: 'fa-hourglass-o pending',
+            rejected: 'fa-times-circle-o rejected',
+        };
+    }),
 
     // translations
     submittedOnLabel: 'components.moderation-list-row.submission.submitted_on',

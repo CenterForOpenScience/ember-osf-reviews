@@ -23,32 +23,36 @@ import Ember from 'ember';
  * @class moderation-list
  * */
 export default Ember.Component.extend({
-    statusButtons: [
-        {
-            status: 'pending',
-            iconClass: 'fa-hourglass-o icon-pending',
-            labelKey: 'components.moderation-list.pending',
-        },
-        {
-            status: 'accepted',
-            iconClass: 'fa-check-circle-o icon-accepted',
-            labelKey: 'components.moderation-list.accepted',
-        },
-        {
-            status: 'rejected',
-            iconClass: 'fa-times-circle-o icon-rejected',
-            labelKey: 'components.moderation-list.rejected',
-        },
-    ],
+    statusButtons: Ember.computed(function() {
+        return [
+            {
+                status: 'pending',
+                iconClass: 'fa-hourglass-o icon-pending',
+                labelKey: 'components.moderation-list.pending',
+            },
+            {
+                status: 'accepted',
+                iconClass: 'fa-check-circle-o icon-accepted',
+                labelKey: 'components.moderation-list.accepted',
+            },
+            {
+                status: 'rejected',
+                iconClass: 'fa-times-circle-o icon-rejected',
+                labelKey: 'components.moderation-list.rejected',
+            },
+        ];
+    }),
 
-    sortOptions: [
-        {
-            sort: '-date_created',
-            labelKey: 'components.moderation-list.oldest',
-        },
-        {
-            sort: 'date_created',
-            labelKey: 'components.moderation-list.newest',
-        },
-    ],
+    sortOptions: Ember.computed(function() {
+        return [
+            {
+                sort: '-date_created',
+                labelKey: 'components.moderation-list.oldest',
+            },
+            {
+                sort: 'date_created',
+                labelKey: 'components.moderation-list.newest',
+            },
+        ];
+    }),
 });

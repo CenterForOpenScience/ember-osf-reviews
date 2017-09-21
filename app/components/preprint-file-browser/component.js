@@ -46,7 +46,7 @@ export default Ember.Component.extend({
         selectFile(file) {
             this.set('selectedFile', file);
             if (this.attrs.selectFile) {
-                this.sendAction('selectFile', file);
+                this.get('chooseFile')(file);
             }
         },
     },

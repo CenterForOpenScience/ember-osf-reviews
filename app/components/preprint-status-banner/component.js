@@ -258,7 +258,7 @@ export default Ember.Component.extend({
             }
 
             const comment = this.get('reviewerComment').trim();
-            this.sendAction('submitDecision', trigger, comment, this.get('decision'));
+            this.get('submitDecision')(trigger, comment, this.get('decision'));
         },
         cancel() {
             this.set('decision', this.get('submission.reviewsState'));

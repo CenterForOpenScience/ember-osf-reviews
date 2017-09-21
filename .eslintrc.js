@@ -4,5 +4,8 @@ module.exports = {
     globals: {
         MathJax: true
     },
-    rules: {}
+    rules: {
+        'ember/local-modules': 'off',
+        'array-callback-return': 'off',
+    }
 };
