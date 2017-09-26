@@ -15,6 +15,12 @@ export default Ember.Controller.extend({
         );
     }),
 
+    sidebarProviders: Ember.computed('model.providers.[]', function() {
+        return this.get('model.providers').filter(provider =>
+            provider.get('reviewsWorkflow') || provider.get('permissions').includes('set_up_moderation')
+        );
+    }),
+
     showDashboard: Ember.computed('model.providers.[]', function() {
         const providers = this.get('model.providers');
         return providers.any((p) => p.get('reviewsWorkflow'));
