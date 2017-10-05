@@ -18,12 +18,13 @@ export default Ember.Route.extend({
 
     model(params) {
         const provider = this.modelFor('preprints.provider');
+        // Pass `true` to force reloading (added in cos-forks/ember-data-has-many-query)
         return provider.query('preprints', {
             'filter[reviews_state]': params.status,
             'meta[reviews_state_counts]': true,
             sort: params.sort,
             page: params.page
-        }).then((results) => {
+        }, true).then((results) => {
             return {
                 submissions: results.toArray(),
                 totalPages: results.get('meta.total'),
