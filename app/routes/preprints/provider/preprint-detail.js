@@ -12,6 +12,13 @@ export default Route.extend({
         return this.store.findRecord('preprint', params.preprint_id, { include: ['node', 'license', 'actions'] });
     },
 
+    afterModel(model) {
+        if (!model.get('node.public')) {
+            return this.transitionTo('page-not-found');
+        }
+        return this._super(...arguments);
+    },
+
     setupController() {
         scheduleOnce('afterRender', this, function() {
             if (!MathJax) return;
