@@ -15,13 +15,13 @@ export default Ember.Route.extend(OSFAgnosticAuthRouteMixin, {
     session: Ember.inject.service(),
     currentUser: Ember.inject.service(),
 
-    afterModel: function() {
+    afterModel() {
         const availableLocales = this.get('i18n.locales').toArray();
         let locale;
 
         if (navigator.languages && navigator.languages.length) {
             // Works in Chrome and Firefox (editable in settings)
-            for (let lang of navigator.languages) {
+            for (const lang of navigator.languages) {
                 if (availableLocales.includes(lang)) {
                     locale = lang;
                     break;
@@ -46,5 +46,5 @@ export default Ember.Route.extend(OSFAgnosticAuthRouteMixin, {
                 }
             });
         }
-    }
+    },
 });

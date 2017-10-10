@@ -20,5 +20,5 @@ export default Ember.Component.extend({
         this.set('attribute', this.get('value'));
         event.preventDefault();
         return false;
-    }
+    },
 });

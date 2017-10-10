@@ -5,7 +5,7 @@ export default Ember.Route.extend({
     currentUser: Ember.inject.service(),
 
     model(params) {
-        return this.store.findRecord('preprint', params.preprint_id, {include: ['node', 'license', 'actions']});
+        return this.store.findRecord('preprint', params.preprint_id, { include: ['node', 'license', 'actions'] });
     },
 
     renderTemplate(controller, model) {
@@ -21,7 +21,7 @@ export default Ember.Route.extend({
     setupController() {
         Ember.run.scheduleOnce('afterRender', this, function() {
             if (!MathJax) return;
-            MathJax.Hub.Queue(['Typeset', MathJax.Hub, [Ember.$('.abstract')[0], Ember.$('#preprintTitle')[0]]]);  // jshint ignore:line
+            MathJax.Hub.Queue(['Typeset', MathJax.Hub, [Ember.$('.abstract')[0], Ember.$('#preprintTitle')[0]]]); // jshint ignore:line
         });
 
         return this._super(...arguments);
@@ -33,5 +33,5 @@ export default Ember.Route.extend({
                 return this.intermediateTransitionTo('page-not-found');
             }
         },
-    }
+    },
 });

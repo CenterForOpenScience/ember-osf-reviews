@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import {loadRelation} from 'ember-osf/utils/load-relationship';
+import { loadRelation } from 'ember-osf/utils/load-relationship';
 
 const ContributorListComponent = Ember.Component.extend({
     tagName: 'ul',

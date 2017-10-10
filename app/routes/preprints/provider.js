@@ -13,7 +13,7 @@ export default Ember.Route.extend({
 
     model(params) {
         return this.get('theme').loadProvider(params.provider_id).catch(() => {
-            this.replaceWith('page-not-found')
+            this.replaceWith('page-not-found');
         });
     },
 

@@ -16,9 +16,9 @@ function query(model, propertyName, params) {
             Ember.$.ajax(url, {
                 data: params,
                 xhrFields: {
-                    withCredentials: true
+                    withCredentials: true,
                 },
-            }).then(payload => {
+            }).then((payload) => {
                 store.pushPayload(payload);
                 const records = payload.data.map(datum => store.peekRecord(datum.type, datum.id));
                 records.meta = payload.meta;
@@ -43,7 +43,7 @@ export default Ember.Route.extend({
     queryParams: {
         sort: { refreshModel: true },
         status: { refreshModel: true },
-        page: { refreshModel: true }
+        page: { refreshModel: true },
     },
 
     model(params) {
@@ -53,7 +53,7 @@ export default Ember.Route.extend({
             'meta[reviews_state_counts]': true,
             sort: params.sort,
             page: params.page,
-        }).then(response => {
+        }).then((response) => {
             return {
                 submissions: response.toArray(),
                 totalPages: Math.ceil(response.links.meta.total / response.links.meta.per_page),
@@ -70,11 +70,11 @@ export default Ember.Route.extend({
 
     actions: {
         loading(transition) {
-            let controller = this.controllerFor('preprints.provider.moderation');
+            const controller = this.controllerFor('preprints.provider.moderation');
             controller.set('loading', true);
             transition.promise.finally(function() {
                 controller.set('loading', false);
             });
         },
-    }
+    },
 });

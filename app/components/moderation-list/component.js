@@ -21,7 +21,7 @@ import Ember from 'ember';
  * }}
  * ```
  * @class moderation-list
- **/
+ * */
 export default Ember.Component.extend({
     classNames: ['content'],
 

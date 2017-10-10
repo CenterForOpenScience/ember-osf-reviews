@@ -17,7 +17,7 @@ const ACTION_LABELS = Object.freeze({
     [REJECTED]: {
         gtDay: 'components.moderation-list-row.submission.was_rejected_on',
         ltDay: 'components.moderation-list-row.submission.was_rejected',
-    }
+    },
 });
 
 
@@ -29,7 +29,7 @@ export default Ember.Component.extend({
     iconClass: {
         accepted: 'fa-check-circle-o accepted',
         pending: 'fa-hourglass-o pending',
-        rejected: 'fa-times-circle-o rejected'
+        rejected: 'fa-times-circle-o rejected',
     },
 
     firstContributors: Ember.computed('submission.node.contributors', function() {
@@ -37,7 +37,7 @@ export default Ember.Component.extend({
     }),
 
     dataLoading: Ember.computed('firstContributors', function () {
-        return this.get('firstContributors.length') == 0
+        return this.get('firstContributors.length') == 0;
     }),
 
     additionalContributors: Ember.computed('submission.node.contributors', function() {
@@ -54,7 +54,7 @@ export default Ember.Component.extend({
             moment(Math.min(Date.parse(this.get('submission.dateLastTransitioned')), Date.now())).fromNow();
     }),
 
-    //translations
+    // translations
     dateLabel: Ember.computed('submission.reviewsState', 'gtDay', function() {
         const dayValue = this.get('gtDay') ? 'gtDay' : 'ltDay';
         return ACTION_LABELS[this.get('submission.reviewsState')][dayValue];

@@ -4,7 +4,7 @@ export default Ember.Component.extend({
     i18n: Ember.inject.service(),
     classNames: ['breadcrumbs'],
 
-    breadcrumbs: Ember.computed('navigator.currentPath', function(){
+    breadcrumbs: Ember.computed('navigator.currentPath', function() {
         // Always include the dashboard breadcrumb
         const breadcrumbs = [{
             name: this.get('i18n').t('dashboard.title'),
@@ -22,9 +22,9 @@ export default Ember.Component.extend({
             Ember.set(r, 'name', (r.context.get && (r.context.get('name') || r.context.get('title'))) || r.part);
 
             // Shorten breadcrumb names longer than 4 words
-            var breadcrumbName = r.name.split(' ')
+            const breadcrumbName = r.name.split(' ');
             if (breadcrumbName.length > 4) {
-                r.name = `${breadcrumbName.slice(0,4).join(' ')}...`;
+                r.name = `${breadcrumbName.slice(0, 4).join(' ')}...`;
             }
             breadcrumbs.push(r);
         }

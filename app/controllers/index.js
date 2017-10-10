@@ -11,19 +11,17 @@ export default Ember.Controller.extend({
 
     providersToSetup: Ember.computed('model.providers.[]', function() {
         return this.get('model.providers').filter(provider =>
-            !provider.get('reviewsWorkflow') && provider.get('permissions').includes('set_up_moderation')
-        );
+            !provider.get('reviewsWorkflow') && provider.get('permissions').includes('set_up_moderation'));
     }),
 
     sidebarProviders: Ember.computed('model.providers.[]', function() {
         return this.get('model.providers').filter(provider =>
-            provider.get('reviewsWorkflow') || provider.get('permissions').includes('set_up_moderation')
-        );
+            provider.get('reviewsWorkflow') || provider.get('permissions').includes('set_up_moderation'));
     }),
 
     showDashboard: Ember.computed('model.providers.[]', function() {
         const providers = this.get('model.providers');
-        return providers.any((p) => p.get('reviewsWorkflow'));
+        return providers.any(p => p.get('reviewsWorkflow'));
     }),
 
     actions: {
@@ -35,6 +33,6 @@ export default Ember.Controller.extend({
         },
         pageChanged() {
             this.incrementProperty('page');
-        }
-    }
+        },
+    },
 });

@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
     reviewsCommentsPrivate: true,
     reviewsCommentsAnonymous: true,
 
-    _t(key, tpl={}) {
+    _t(key, tpl = {}) {
         return this.get('i18n').t(`provider_settings.${key}`, tpl);
     },
 
@@ -34,7 +34,7 @@ export default Ember.Controller.extend({
     },
 
     providerSettings: Ember.computed('model', 'reviewsCommentsPrivate', function() {
-        let settings = ENV.PROVIDER_SETTINGS.map(this._buildSetting.bind(this));
+        const settings = ENV.PROVIDER_SETTINGS.map(this._buildSetting.bind(this));
         // Tie anon comments to private comments
         settings[2].disabled = this.get('reviewsCommentsPrivate');
         return settings;
@@ -46,7 +46,7 @@ export default Ember.Controller.extend({
             return false;
         },
         submit() {
-            ENV.PROVIDER_SETTINGS.forEach(setting => {
+            ENV.PROVIDER_SETTINGS.forEach((setting) => {
                 this.set(`model.${setting.name}`, this.get(setting.name));
             });
 
@@ -61,11 +61,11 @@ export default Ember.Controller.extend({
 
                 this.get('toast').error(
                     this.get('i18n').t('setup.error.message').toString(),
-                    this.get('i18n').t('setup.error.title').toString()
+                    this.get('i18n').t('setup.error.title').toString(),
                 );
             }).then(() => {
                 return this.transitionToRoute('preprints.provider.settings', this.get('model'));
             });
-        }
-    }
+        },
+    },
 });

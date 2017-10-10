@@ -20,8 +20,8 @@ export default Ember.Controller.extend(OSFAgnosticAuthControllerMixin, {
         this.get('i18n').addGlobals({
             preprintWords: {
                 preprint: this.get('i18n').t('documentType.preprint.singularCapitalized'),
-            }
+            },
         });
         this._super(...arguments);
-    }
+    },
 });

@@ -10,9 +10,9 @@ import Ember from 'ember';
  * }}
  * ```
  * @class moderation-base
- **/
+ * */
 export default Ember.Component.extend({
-    tabs: Ember.computed('pendingCount', function(){
+    tabs: Ember.computed('pendingCount', function() {
         return [
             {
                 nameKey: 'global.moderation',
