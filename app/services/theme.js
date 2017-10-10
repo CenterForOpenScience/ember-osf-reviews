@@ -1,21 +1,25 @@
-import Ember from 'ember';
+import { getOwner } from '@ember/application';
+import $ from 'jquery';
+import { computed, observer, get } from '@ember/object';
+import { alias, empty, not, equal } from '@ember/object/computed';
+import Service, { inject as service } from '@ember/service';
 import config from 'ember-get-config';
 
 
-export default Ember.Service.extend({
-    i18n: Ember.inject.service(),
-    store: Ember.inject.service(),
+export default Service.extend({
+    i18n: service(),
+    store: service(),
 
     provider: null,
 
-    id: Ember.computed.alias('provider.id'),
-    domain: Ember.computed.alias('provider.domain'),
-    isLoaded: Ember.computed.empty('provider'),
-    isProvider: Ember.computed.not('isNotProvider'),
-    isNotProvider: Ember.computed.equal('provider.id', 'OSF'),
+    id: alias('provider.id'),
+    domain: alias('provider.domain'),
+    isLoaded: empty('provider'),
+    isProvider: not('isNotProvider'),
+    isNotProvider: equal('provider.id', 'OSF'),
 
-    signupUrl: Ember.computed('id', function() {
-        const query = Ember.$.param({
+    signupUrl: computed('id', function() {
+        const query = $.param({
             campaign: `${this.get('id')}-reviews`,
             next: window.location.href,
         });
@@ -23,7 +27,7 @@ export default Ember.Service.extend({
         return `${config.OSF.url}register?${query}`;
     }),
 
-    baseServiceUrl: Ember.computed('isProvider', 'domain', 'id', function() {
+    baseServiceUrl: computed('isProvider', 'domain', 'id', function() {
         let baseURL = '/';
 
         if (!this.get('domain')) {
@@ -37,13 +41,13 @@ export default Ember.Service.extend({
         return baseURL;
     }),
 
-    onProviderLoad: Ember.observer('provider', function() {
-        const locale = Ember.getOwner(this).factoryFor(`locale:${this.get('i18n.locale')}/translations`).class;
+    onProviderLoad: observer('provider', function() {
+        const locale = getOwner(this).factoryFor(`locale:${this.get('i18n.locale')}/translations`).class;
         this.get('i18n').addGlobals({
             provider: {
                 id: this.get('provider.id'),
                 name: this.get('provider.name'),
-                type: Ember.get(locale, `documentType.${this.get('provider.preprintWord')}`),
+                type: get(locale, `documentType.${this.get('provider.preprintWord')}`),
             },
         });
     }),

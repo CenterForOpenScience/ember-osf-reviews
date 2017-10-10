@@ -1,25 +1,28 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { notEmpty } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
-    session: Ember.inject.service(),
-    currentUser: Ember.inject.service(),
+export default Controller.extend({
+    session: service(),
+    currentUser: service(),
 
     queryParams: ['page'],
     page: 1,
 
-    showSetup: Ember.computed.notEmpty('providersToSetup'),
+    showSetup: notEmpty('providersToSetup'),
 
-    providersToSetup: Ember.computed('model.providers.[]', function() {
+    providersToSetup: computed('model.providers.[]', function() {
         return this.get('model.providers').filter(provider =>
             !provider.get('reviewsWorkflow') && provider.get('permissions').includes('set_up_moderation'));
     }),
 
-    sidebarProviders: Ember.computed('model.providers.[]', function() {
+    sidebarProviders: computed('model.providers.[]', function() {
         return this.get('model.providers').filter(provider =>
             provider.get('reviewsWorkflow') || provider.get('permissions').includes('set_up_moderation'));
     }),
 
-    showDashboard: Ember.computed('model.providers.[]', function() {
+    showDashboard: computed('model.providers.[]', function() {
         const providers = this.get('model.providers');
         return providers.any(p => p.get('reviewsWorkflow'));
     }),

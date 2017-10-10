@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 /**
  * Provides a list of pending, accepted, and rejected submissions. Provides filtering by preprint state and sorting based
  * on the preprint creation date. If number of records in each type exceeds 10, pagination is enabled. Current page for
@@ -22,7 +22,7 @@ import Ember from 'ember';
  * ```
  * @class moderation-list
  * */
-export default Ember.Component.extend({
+export default Component.extend({
     classNames: ['content'],
 
     statusButtons: [

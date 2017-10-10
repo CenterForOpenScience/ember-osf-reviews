@@ -1,9 +1,11 @@
-import Ember from 'ember';
+import { hash } from 'rsvp';
+import { inject as service } from '@ember/service';
+import Route from '@ember/routing/route';
 
-export default Ember.Route.extend({
-    currentUser: Ember.inject.service(),
-    session: Ember.inject.service(),
-    store: Ember.inject.service(),
+export default Route.extend({
+    currentUser: service(),
+    session: service(),
+    store: service(),
 
     queryParams: {
         page: { refreshModel: true },
@@ -18,7 +20,7 @@ export default Ember.Route.extend({
         if (!this.get('session.isAuthenticated')) {
             return emptyModels;
         }
-        return Ember.RSVP.hash({
+        return hash({
             providers: this.get('store').query('preprint-provider', {
                 'filter[permissions]': 'view_actions,set_up_moderation',
             }),

@@ -1,11 +1,11 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
 import ResetScrollMixin from 'reviews/mixins/reset-scroll';
 import { module, test } from 'qunit';
 
 module('Unit | Mixin | reset scroll');
 
 test('it works', function(assert) {
-    const RouteObject = Ember.Route.extend(ResetScrollMixin);
+    const RouteObject = Route.extend(ResetScrollMixin);
     const TestedRoute = RouteObject.create();
     TestedRoute.set('scrollTarget', {
         scrollTo() {

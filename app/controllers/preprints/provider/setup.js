@@ -1,10 +1,12 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Controller from '@ember/controller';
 import ENV from 'reviews/config/environment';
 
 
-export default Ember.Controller.extend({
-    i18n: Ember.inject.service(),
-    toast: Ember.inject.service(),
+export default Controller.extend({
+    i18n: service(),
+    toast: service(),
 
     // Defaults
     reviewsWorkflow: 'pre-moderation',
@@ -33,7 +35,7 @@ export default Ember.Controller.extend({
         };
     },
 
-    providerSettings: Ember.computed('model', 'reviewsCommentsPrivate', function() {
+    providerSettings: computed('model', 'reviewsCommentsPrivate', function() {
         const settings = ENV.PROVIDER_SETTINGS.map(this._buildSetting.bind(this));
         // Tie anon comments to private comments
         settings[2].disabled = this.get('reviewsCommentsPrivate');

@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Route from '@ember/routing/route';
 
 import OSFAgnosticAuthRouteMixin from 'ember-osf/mixins/osf-agnostic-auth-route';
 
@@ -10,10 +11,10 @@ import OSFAgnosticAuthRouteMixin from 'ember-osf/mixins/osf-agnostic-auth-route'
 /**
  * @class Application Route Handler
  */
-export default Ember.Route.extend(OSFAgnosticAuthRouteMixin, {
-    i18n: Ember.inject.service(),
-    session: Ember.inject.service(),
-    currentUser: Ember.inject.service(),
+export default Route.extend(OSFAgnosticAuthRouteMixin, {
+    i18n: service(),
+    session: service(),
+    currentUser: service(),
 
     afterModel() {
         const availableLocales = this.get('i18n.locales').toArray();

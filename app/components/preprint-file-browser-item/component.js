@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
 
-const PreprintFileBrowserItem = Ember.Component.extend({
+const PreprintFileBrowserItem = Component.extend({
     classNames: ['col-xs-2'],
     classNameBindings: ['isPrimary:primary', 'isSelected:selected'],
 
@@ -9,7 +10,7 @@ const PreprintFileBrowserItem = Ember.Component.extend({
     selected: true,
     isPrimary: false,
 
-    icon: Ember.computed('file', function() {
+    icon: computed('file', function() {
         return {
             file: 'fa-file-text',
             folder: 'fa-folder',

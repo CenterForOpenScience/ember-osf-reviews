@@ -1,10 +1,13 @@
-import Ember from 'ember';
+import { isEmpty } from '@ember/utils';
+import { computed, set } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
-    i18n: Ember.inject.service(),
+export default Component.extend({
+    i18n: service(),
     classNames: ['breadcrumbs'],
 
-    breadcrumbs: Ember.computed('navigator.currentPath', function() {
+    breadcrumbs: computed('navigator.currentPath', function() {
         // Always include the dashboard breadcrumb
         const breadcrumbs = [{
             name: this.get('i18n').t('dashboard.title'),
@@ -13,13 +16,13 @@ export default Ember.Component.extend({
         for (const r of this.get('navigator.routeContexts')) {
             // Skip crumbs with no context
             // Skip 'moderation'
-            if (Ember.isEmpty(r.context) || !Object.keys(r.context).length || r.part === 'moderation') continue;
+            if (isEmpty(r.context) || !Object.keys(r.context).length || r.part === 'moderation') continue;
 
             // Skip crumbs with the same context as the prior crumb
             if (r.context === breadcrumbs[breadcrumbs.length - 1].context) continue;
 
             // Prefer model name or title, fall back to the route name
-            Ember.set(r, 'name', (r.context.get && (r.context.get('name') || r.context.get('title'))) || r.part);
+            set(r, 'name', (r.context.get && (r.context.get('name') || r.context.get('title'))) || r.part);
 
             // Shorten breadcrumb names longer than 4 words
             const breadcrumbName = r.name.split(' ');

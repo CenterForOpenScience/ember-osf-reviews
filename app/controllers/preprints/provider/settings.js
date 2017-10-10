@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
 import SetupController from 'reviews/controllers/preprints/provider/setup';
 
 
 export default SetupController.extend({
-    providerSettings: Ember.computed('model', 'reviewsCommentsPrivate', function() {
+    providerSettings: computed('model', 'reviewsCommentsPrivate', function() {
         const res = this._super();
         res.forEach(setting => (setting.disabled = true));
         // Don't show anon comments settings if comments are private

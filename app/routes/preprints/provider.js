@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Route from '@ember/routing/route';
 
 /**
  * @module ember-osf-reviews
@@ -8,8 +9,8 @@ import Ember from 'ember';
 /**
  * @class Provider Route Handler
  */
-export default Ember.Route.extend({
-    theme: Ember.inject.service(),
+export default Route.extend({
+    theme: service(),
 
     model(params) {
         return this.get('theme').loadProvider(params.provider_id).catch(() => {

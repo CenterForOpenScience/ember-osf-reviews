@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
     classNames: ['osf-box'],
 
     title: null,
@@ -12,7 +13,7 @@ export default Ember.Component.extend({
     // Bound attribute
     attribute: null,
 
-    checked: Ember.computed('attribute', 'value', function() {
+    checked: computed('attribute', 'value', function() {
         return this.get('value') == this.get('attribute') ? 'checked' : null;
     }),
 

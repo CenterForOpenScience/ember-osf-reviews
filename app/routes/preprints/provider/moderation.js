@@ -1,4 +1,9 @@
-import Ember from 'ember';
+import { inject as service } from '@ember/service';
+import Route from '@ember/routing/route';
+import PromiseProxyMixin from '@ember/object/promise-proxy-mixin';
+import ArrayProxy from '@ember/array/proxy';
+import $ from 'jquery';
+import { Promise as EmberPromise } from 'rsvp';
 /**
  * @module ember-osf-reviews
  * @submodule routes
@@ -8,12 +13,12 @@ import Ember from 'ember';
 function query(model, propertyName, params) {
     const reference = model.hasMany(propertyName);
     const store = reference.store;
-    const promise = new Ember.RSVP.Promise((resolve, reject) => {
+    const promise = new EmberPromise((resolve, reject) => {
         // HACK: ember-data discards/ignores the link if an object on the belongsTo side came first.
         // In that case, grab the link where we expect it from OSF's API
         const url = reference.link() || model.get(`links.relationships.${propertyName}.links.related.href`);
         if (url) {
-            Ember.$.ajax(url, {
+            $.ajax(url, {
                 data: params,
                 xhrFields: {
                     withCredentials: true,
@@ -30,15 +35,15 @@ function query(model, propertyName, params) {
         }
     });
 
-    const ArrayPromiseProxy = Ember.ArrayProxy.extend(Ember.PromiseProxyMixin);
+    const ArrayPromiseProxy = ArrayProxy.extend(PromiseProxyMixin);
     return ArrayPromiseProxy.create({ promise });
 }
 
 /**
  * @class provider Route Handler
  */
-export default Ember.Route.extend({
-    theme: Ember.inject.service(),
+export default Route.extend({
+    theme: service(),
 
     queryParams: {
         sort: { refreshModel: true },

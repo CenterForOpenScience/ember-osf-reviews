@@ -1,5 +1,6 @@
-import Ember from 'ember';
+import { reads } from '@ember/object/computed';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
-    pendingCount: Ember.computed.reads('model.reviewableStatusCounts.pending'),
+export default Controller.extend({
+    pendingCount: reads('model.reviewableStatusCounts.pending'),
 });

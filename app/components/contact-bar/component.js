@@ -1,12 +1,13 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
     classNames: ['reviews-contact-bar'],
 
     // Show language asking for feedback instead of setting up a provider
     feedback: null,
 
-    keys: Ember.computed('feedback', function() {
+    keys: computed('feedback', function() {
         const key = this.get('feedback') ? 'feedback' : 'startService';
         return {
             title: `contactBar.${key}.title`,

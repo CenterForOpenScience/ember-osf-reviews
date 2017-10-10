@@ -1,4 +1,6 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import moment from 'moment';
 
 const PENDING = 'pending';
@@ -21,8 +23,8 @@ const ACTION_LABELS = Object.freeze({
 });
 
 
-export default Ember.Component.extend({
-    theme: Ember.inject.service(),
+export default Component.extend({
+    theme: service(),
 
     classNames: ['moderation-list-row'],
 
@@ -32,35 +34,35 @@ export default Ember.Component.extend({
         rejected: 'fa-times-circle-o rejected',
     },
 
-    firstContributors: Ember.computed('submission.node.contributors', function() {
+    firstContributors: computed('submission.node.contributors', function() {
         return this.get('submission.node.contributors').slice(0, 3);
     }),
 
-    dataLoading: Ember.computed('firstContributors', function () {
+    dataLoading: computed('firstContributors', function () {
         return this.get('firstContributors.length') == 0;
     }),
 
-    additionalContributors: Ember.computed('submission.node.contributors', function() {
+    additionalContributors: computed('submission.node.contributors', function() {
         return this.get('submission.node.contributors.content.meta.pagination.total') - 3;
     }),
 
-    gtDay: Ember.computed('submission.dateLastTransitioned', function() {
+    gtDay: computed('submission.dateLastTransitioned', function() {
         return moment().diff(this.get('submission.dateLastTransitioned'), 'days') > 1;
     }),
 
-    relevantDate: Ember.computed('submission.dateLastTransitioned', 'gtDay', function() {
+    relevantDate: computed('submission.dateLastTransitioned', 'gtDay', function() {
         return this.get('gtDay') ?
             moment(this.get('submission.dateLastTransitioned')).format('MMMM DD, YYYY') :
             moment(Math.min(Date.parse(this.get('submission.dateLastTransitioned')), Date.now())).fromNow();
     }),
 
     // translations
-    dateLabel: Ember.computed('submission.reviewsState', 'gtDay', function() {
+    dateLabel: computed('submission.reviewsState', 'gtDay', function() {
         const dayValue = this.get('gtDay') ? 'gtDay' : 'ltDay';
         return ACTION_LABELS[this.get('submission.reviewsState')][dayValue];
     }),
 
-    submittedByLabel: Ember.computed('submission.reviewsState', function() {
+    submittedByLabel: computed('submission.reviewsState', function() {
         return this.get('submission.reviewsState') === PENDING ?
             'components.moderation-list-row.submission.by' :
             'components.moderation-list-row.submission.submission_by';

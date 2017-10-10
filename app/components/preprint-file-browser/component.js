@@ -1,36 +1,39 @@
-import Ember from 'ember';
+import { Promise as EmberPromise } from 'rsvp';
+import { computed } from '@ember/object';
+import { gt } from '@ember/object/computed';
+import Component from '@ember/component';
 import { ArrayPromiseProxy, loadRelation } from 'ember-osf/utils/load-relationship';
 
 const PAGE_SIZE = 6;
 
 
-export default Ember.Component.extend({
+export default Component.extend({
     pageNumber: 0,
     selectedFile: null,
     primaryFile: null,
 
-    hasAdditionalFiles: Ember.computed.gt('files.length', 1),
+    hasAdditionalFiles: gt('files.length', 1),
 
-    hasPrev: Ember.computed('pageNumber', function() {
+    hasPrev: computed('pageNumber', function() {
         return this.get('pageNumber') > 0;
     }),
 
-    hasNext: Ember.computed('pageNumber', function() {
+    hasNext: computed('pageNumber', function() {
         return (this.get('pageNumber') + 1) * PAGE_SIZE < this.get('files.length');
     }),
 
-    fileIsPrimary: Ember.computed('selectedFile', 'primaryFile', function() {
+    fileIsPrimary: computed('selectedFile', 'primaryFile', function() {
         return this.get('selectedFile') === this.get('primaryFile');
     }),
 
-    files: Ember.computed('preprint', function() {
-        const promise = this.getWithDefault('preprint.node.files', new Ember.RSVP.Promise(() => null))
+    files: computed('preprint', function() {
+        const promise = this.getWithDefault('preprint.node.files', new EmberPromise(() => null))
             .then(providers => providers.findBy('name', 'osfstorage'))
             .then(provider => loadRelation(provider, 'files'));
         return ArrayPromiseProxy.create({ promise });
     }),
 
-    page: Ember.computed('files.[]', 'pageNumber', function() {
+    page: computed('files.[]', 'pageNumber', function() {
         const offset = this.get('pageNumber') * PAGE_SIZE;
         return this.get('files').slice(offset, offset + PAGE_SIZE);
     }),

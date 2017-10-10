@@ -1,4 +1,6 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import { translationMacro as t } from 'ember-i18n';
 
 /**
@@ -10,15 +12,15 @@ import { translationMacro as t } from 'ember-i18n';
  * ```
  * @class action-feed
  */
-export default Ember.Component.extend({
-    store: Ember.inject.service(),
-    toast: Ember.inject.service(),
+export default Component.extend({
+    store: service(),
+    toast: service(),
 
     classNames: ['action-feed'],
 
     errorMessage: t('components.action-feed.error_loading'),
 
-    moreActions: Ember.computed('totalPages', 'page', function() {
+    moreActions: computed('totalPages', 'page', function() {
         return this.get('page') < this.get('totalPages');
     }),
 });

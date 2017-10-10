@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import Component from '@ember/component';
 /**
  * The base for the provider moderation page (tabs, provider name, and breadcrumbs).
  *
@@ -11,8 +12,8 @@ import Ember from 'ember';
  * ```
  * @class moderation-base
  * */
-export default Ember.Component.extend({
-    tabs: Ember.computed('pendingCount', function() {
+export default Component.extend({
+    tabs: computed('pendingCount', function() {
         return [
             {
                 nameKey: 'global.moderation',

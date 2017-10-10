@@ -1,4 +1,8 @@
-import Ember from 'ember';
+import { isBlank } from '@ember/utils';
+import { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import Component from '@ember/component';
 import moment from 'moment';
 
 const PENDING = 'pending';
@@ -85,9 +89,9 @@ const RECENT_ACTIVITY = {
     },
 };
 
-export default Ember.Component.extend({
-    i18n: Ember.inject.service(),
-    theme: Ember.inject.service(),
+export default Component.extend({
+    i18n: service(),
+    theme: service(),
 
     // translations
     moderator: 'components.preprint-status-banner.decision.moderator',
@@ -101,17 +105,17 @@ export default Ember.Component.extend({
     loadingActions: true,
     noActions: false,
 
-    reviewsWorkflow: Ember.computed.alias('submission.provider.reviewsWorkflow'),
-    reviewsCommentsPrivate: Ember.computed.alias('submission.provider.reviewsCommentsPrivate'),
-    reviewsCommentsAnonymous: Ember.computed.alias('submission.provider.reviewsCommentsAnonymous'),
+    reviewsWorkflow: alias('submission.provider.reviewsWorkflow'),
+    reviewsCommentsPrivate: alias('submission.provider.reviewsCommentsPrivate'),
+    reviewsCommentsAnonymous: alias('submission.provider.reviewsCommentsAnonymous'),
 
-    getClassName: Ember.computed('reviewsWorkflow', 'submission.reviewsState', function() {
+    getClassName: computed('reviewsWorkflow', 'submission.reviewsState', function() {
         return this.get('submission.reviewsState') === PENDING ?
             CLASS_NAMES[this.get('reviewsWorkflow')] :
             CLASS_NAMES[this.get('submission.reviewsState')];
     }),
 
-    latestAction: Ember.computed('submission.actions.[]', function() {
+    latestAction: computed('submission.actions.[]', function() {
         if (!this.get('submission.actions.length')) {
             return null;
         }
@@ -121,8 +125,8 @@ export default Ember.Component.extend({
         const last = this.get('submission.actions.lastObject');
         return moment(first.get('dateModified')) > moment(last.get('dateModified')) ? first : last;
     }),
-    creatorProfile: Ember.computed.alias('latestAction.creator.profileURL'),
-    creatorName: Ember.computed.alias('latestAction.creator.fullName'),
+    creatorProfile: alias('latestAction.creator.profileURL'),
+    creatorName: alias('latestAction.creator.fullName'),
 
     init() {
         this.get('submission.actions').then((actions) => {
@@ -147,21 +151,21 @@ export default Ember.Component.extend({
         return this._super(...arguments);
     },
 
-    statusExplanation: Ember.computed('reviewsWorkflow', 'submission.reviewsState', function() {
+    statusExplanation: computed('reviewsWorkflow', 'submission.reviewsState', function() {
         return this.get('submission.reviewsState') === PENDING ?
             MESSAGE[this.get('reviewsWorkflow')] :
             MESSAGE[this.get('submission.reviewsState')];
     }),
 
-    status: Ember.computed('submission.reviewsState', function() {
+    status: computed('submission.reviewsState', function() {
         return STATUS[this.get('submission.reviewsState')];
     }),
 
-    icon: Ember.computed('submission.reviewsState', function() {
+    icon: computed('submission.reviewsState', function() {
         return ICONS[this.get('submission.reviewsState')];
     }),
 
-    recentActivityLanguage: Ember.computed('noActions', 'submission.reviewsState', function() {
+    recentActivityLanguage: computed('noActions', 'submission.reviewsState', function() {
         if (this.get('noActions')) {
             return RECENT_ACTIVITY.automatic[this.get('submission.reviewsState')];
         } else {
@@ -175,52 +179,52 @@ export default Ember.Component.extend({
     reviewerComment: '',
     decision: 'accepted',
 
-    noComment: Ember.computed('reviewerComment', function() {
-        return Ember.isBlank(this.get('reviewerComment'));
+    noComment: computed('reviewerComment', function() {
+        return isBlank(this.get('reviewerComment'));
     }),
 
-    settingsComments: Ember.computed('reviewsCommentsPrivate', function() {
+    settingsComments: computed('reviewsCommentsPrivate', function() {
         const commentType = this.get('reviewsCommentsPrivate') ? 'private' : 'public';
         return SETTINGS.comments[commentType];
     }),
-    settingsNames: Ember.computed('reviewsCommentsAnonymous', function() {
+    settingsNames: computed('reviewsCommentsAnonymous', function() {
         const commentType = this.get('reviewsCommentsAnonymous') ? 'anonymous' : 'named';
         return SETTINGS.names[commentType];
     }),
-    settingsModeration: Ember.computed('reviewsWorkflow', function() {
+    settingsModeration: computed('reviewsWorkflow', function() {
         return SETTINGS.moderation[this.get('reviewsWorkflow')];
     }),
 
-    settingsCommentsIcon: Ember.computed('reviewsCommentsPrivate', function() {
+    settingsCommentsIcon: computed('reviewsCommentsPrivate', function() {
         const commentType = this.get('reviewsCommentsPrivate') ? 'private' : 'public';
         return SETTINGS_ICONS.comments[commentType];
     }),
-    settingsNamesIcon: Ember.computed('reviewsCommentsAnonymous', function() {
+    settingsNamesIcon: computed('reviewsCommentsAnonymous', function() {
         const commentType = this.get('reviewsCommentsAnonymous') ? 'anonymous' : 'named';
         return SETTINGS_ICONS.names[commentType];
     }),
-    settingsModerationIcon: Ember.computed('reviewsWorkflow', function() {
+    settingsModerationIcon: computed('reviewsWorkflow', function() {
         return SETTINGS_ICONS.moderation[this.get('reviewsWorkflow')];
     }),
 
-    acceptExplanation: Ember.computed('reviewsWorkflow', function() {
+    acceptExplanation: computed('reviewsWorkflow', function() {
         return DECISION_EXPLANATION.accept[this.get('reviewsWorkflow')];
     }),
-    rejectExplanation: Ember.computed('reviewsWorkflow', function() {
+    rejectExplanation: computed('reviewsWorkflow', function() {
         return DECISION_EXPLANATION.reject[this.get('reviewsWorkflow')];
     }),
 
-    labelDecisionDropdown: Ember.computed('submission.reviewsState', function() {
+    labelDecisionDropdown: computed('submission.reviewsState', function() {
         return this.get('submission.reviewsState') === PENDING ?
             'components.preprint-status-banner.decision.make_decision' :
             'components.preprint-status-banner.decision.modify_decision';
     }),
-    labelDecisionHeader: Ember.computed('submission.reviewsState', function() {
+    labelDecisionHeader: computed('submission.reviewsState', function() {
         return this.get('submission.reviewsState') === PENDING ?
             'components.preprint-status-banner.decision.header.submit_decision' :
             'components.preprint-status-banner.decision.header.modify_decision';
     }),
-    labelDecisionBtn: Ember.computed('submission.reviewsState', 'decision', 'reviewerComment', function() {
+    labelDecisionBtn: computed('submission.reviewsState', 'decision', 'reviewerComment', function() {
         if (this.get('submission.reviewsState') === PENDING) {
             return 'components.preprint-status-banner.decision.btn.submit_decision';
         } else if (this.get('submission.reviewsState') !== this.get('decision')) {
@@ -231,15 +235,15 @@ export default Ember.Component.extend({
         return 'components.preprint-status-banner.decision.btn.modify_decision';
     }),
 
-    commentEdited: Ember.computed('reviewerComment', 'initialReviewerComment', function() {
+    commentEdited: computed('reviewerComment', 'initialReviewerComment', function() {
         return this.get('reviewerComment').trim() !== this.get('initialReviewerComment');
     }),
 
-    decisionChanged: Ember.computed('submission.reviewsState', 'decision', function() {
+    decisionChanged: computed('submission.reviewsState', 'decision', function() {
         return this.get('submission.reviewsState') !== this.get('decision');
     }),
 
-    btnDisabled: Ember.computed('decisionChanged', 'commentEdited', 'saving', function() {
+    btnDisabled: computed('decisionChanged', 'commentEdited', 'saving', function() {
         if (this.get('saving') || (!this.get('decisionChanged') && !this.get('commentEdited'))) {
             return true;
         }

@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
 
-export default Ember.Route.extend({
+export default Route.extend({
     afterModel(model/* , transition */) {
         if (!model.get('permissions').contains('set_up_moderation')) {
             this.replaceWith('index');
