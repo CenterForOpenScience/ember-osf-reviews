@@ -21,7 +21,10 @@ export default Route.extend({
     model(params) {
         const provider = this.modelFor('preprints.provider');
         return this.get('store').queryHasMany(provider, 'preprints', {
-            'filter[reviews_state]': params.status,
+            filter: {
+                reviews_state: params.status,
+                node_is_public: true,
+            },
             'meta[reviews_state_counts]': true,
             sort: params.sort,
             page: params.page,
