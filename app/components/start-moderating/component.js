@@ -9,21 +9,12 @@ export default Component.extend({
     disabled: false,
     choiceRequired: false,
 
-    providers: [],
     selectedProvider: null,
 
-    click() {
-        if (this.get('providers.length') > 1) {
-            this.set('choiceRequired', true);
-            this.set('selectedProvider', this.get('providers.firstObject'));
-            return;
-        }
-        this.setupProvider(this.get('providers.firstObject'));
-    },
+    init() {
+        this._super(...arguments);
 
-    setupProvider(provider) {
-        this.set('disabled', true);
-        this.get('action')(provider);
+        this.providers = [];
     },
 
     actions: {
@@ -35,5 +26,19 @@ export default Component.extend({
             this.set('disabled', false);
             this.set('choiceRequired', false);
         },
+    },
+
+    setupProvider(provider) {
+        this.set('disabled', true);
+        this.get('action')(provider);
+    },
+
+    click() {
+        if (this.get('providers.length') > 1) {
+            this.set('choiceRequired', true);
+            this.set('selectedProvider', this.get('providers.firstObject'));
+            return;
+        }
+        this.setupProvider(this.get('providers.firstObject'));
     },
 });

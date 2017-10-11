@@ -105,51 +105,17 @@ export default Component.extend({
     loadingActions: true,
     noActions: false,
 
+    // Submission form
+    initialReviewerComment: '',
+    reviewerComment: '',
+    decision: 'accepted',
+
     reviewsWorkflow: alias('submission.provider.reviewsWorkflow'),
     reviewsCommentsPrivate: alias('submission.provider.reviewsCommentsPrivate'),
     reviewsCommentsAnonymous: alias('submission.provider.reviewsCommentsAnonymous'),
 
-    getClassName: computed('reviewsWorkflow', 'submission.reviewsState', function() {
-        return this.get('submission.reviewsState') === PENDING ?
-            CLASS_NAMES[this.get('reviewsWorkflow')] :
-            CLASS_NAMES[this.get('submission.reviewsState')];
-    }),
-
-    latestAction: computed('submission.actions.[]', function() {
-        if (!this.get('submission.actions.length')) {
-            return null;
-        }
-        // on create, Ember puts the new object at the end of the array
-        // https://stackoverflow.com/questions/15210249/ember-data-insert-new-item-at-beginning-of-array-instead-of-at-the-end
-        const first = this.get('submission.actions.firstObject');
-        const last = this.get('submission.actions.lastObject');
-        return moment(first.get('dateModified')) > moment(last.get('dateModified')) ? first : last;
-    }),
     creatorProfile: alias('latestAction.creator.profileURL'),
     creatorName: alias('latestAction.creator.fullName'),
-
-    init() {
-        this.get('submission.actions').then((actions) => {
-            if (actions.length) {
-                if (this.get('submission.reviewsState') !== PENDING) {
-                    const comment = actions.get('firstObject.comment');
-                    this.set('initialReviewerComment', comment);
-                    this.set('reviewerComment', comment);
-                    this.set('decision', this.get('submission.reviewsState'));
-                } else {
-                    this.set('initialReviewerComment', '');
-                    this.set('reviewerComment', '');
-                    this.set('decision', ACCEPTED);
-                }
-                this.set('noActions', false);
-            } else {
-                this.set('noActions', true);
-            }
-            this.set('loadingActions', false);
-        });
-
-        return this._super(...arguments);
-    },
 
     statusExplanation: computed('reviewsWorkflow', 'submission.reviewsState', function() {
         return this.get('submission.reviewsState') === PENDING ?
@@ -173,11 +139,23 @@ export default Component.extend({
         }
     }),
 
-    /* Submission Form */
 
-    initialReviewerComment: '',
-    reviewerComment: '',
-    decision: 'accepted',
+    getClassName: computed('reviewsWorkflow', 'submission.reviewsState', function() {
+        return this.get('submission.reviewsState') === PENDING ?
+            CLASS_NAMES[this.get('reviewsWorkflow')] :
+            CLASS_NAMES[this.get('submission.reviewsState')];
+    }),
+
+    latestAction: computed('submission.actions.[]', function() {
+        if (!this.get('submission.actions.length')) {
+            return null;
+        }
+        // on create, Ember puts the new object at the end of the array
+        // https://stackoverflow.com/questions/15210249/ember-data-insert-new-item-at-beginning-of-array-instead-of-at-the-end
+        const first = this.get('submission.actions.firstObject');
+        const last = this.get('submission.actions.lastObject');
+        return moment(first.get('dateModified')) > moment(last.get('dateModified')) ? first : last;
+    }),
 
     noComment: computed('reviewerComment', function() {
         return isBlank(this.get('reviewerComment'));
@@ -250,6 +228,11 @@ export default Component.extend({
         return false;
     }),
 
+    init() {
+        this.get('submission.actions').then(this._handleActions.bind(this));
+        return this._super(...arguments);
+    },
+
     actions: {
         submit() {
             let trigger = '';
@@ -266,5 +249,24 @@ export default Component.extend({
             this.set('decision', this.get('submission.reviewsState'));
             this.set('reviewerComment', this.get('initialReviewerComment'));
         },
+    },
+
+    _handleActions(actions) {
+        if (actions.length) {
+            if (this.get('submission.reviewsState') !== PENDING) {
+                const comment = actions.get('firstObject.comment');
+                this.set('initialReviewerComment', comment);
+                this.set('reviewerComment', comment);
+                this.set('decision', this.get('submission.reviewsState'));
+            } else {
+                this.set('initialReviewerComment', '');
+                this.set('reviewerComment', '');
+                this.set('decision', ACCEPTED);
+            }
+            this.set('noActions', false);
+        } else {
+            this.set('noActions', true);
+        }
+        this.set('loadingActions', false);
     },
 });

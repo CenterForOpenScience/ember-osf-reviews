@@ -3,12 +3,15 @@
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const Funnel = require('broccoli-funnel');
+const jQueryPackage = require('jquery/package.json');
+const Autoprefixer = require('autoprefixer');
+const CSSNano = require('cssnano');
 
 
 module.exports = function(defaults) {
     // const EMBER_DATA_VERSION = defaults.project.addonPackages['ember-data'].pkg.version;
     const EMBER_VERSION = defaults.project.addonPackages['ember-source'].pkg.version;
-    const JQUERY_VERSION = require('jquery/package.json').version;
+    const JQUERY_VERSION = jQueryPackage.version;
 
     // Values chosen abritrarily, feel free to change
     const LEAN_BUILD = ['production'].includes(EmberApp.env());
@@ -58,7 +61,7 @@ module.exports = function(defaults) {
                 `,
                 // TODO Figure out how to CDN ember-data
                 // The CDN version appears to load a deprecated interface that breaks stuff
-                // <script src="//cdnjs.cloudflare.com/ajax/libs/ember-data.js/${EMBER_DATA_VERSION}/ember-data.js"></script>
+                // cdnjs.cloudflare.com/ajax/libs/ember-data.js/${EMBER_DATA_VERSION}/ember-data.js
             },
             assets: {
                 enabled: true,
@@ -82,9 +85,9 @@ module.exports = function(defaults) {
                 enabled: LEAN_BUILD,
                 include: ['**/*.css'],
                 plugins: [{
-                    module: require('autoprefixer'),
+                    module: Autoprefixer,
                 }, {
-                    module: require('cssnano'),
+                    module: CSSNano,
                 }],
             },
         },

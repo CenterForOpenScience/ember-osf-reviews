@@ -25,7 +25,7 @@ export default Controller.extend({
     theme: service(),
     toast: service(),
 
-    node: alias('model.node'),
+    queryParams: { chosenFile: 'file' },
 
     fullScreenMFR: false,
     savingAction: false,
@@ -34,10 +34,10 @@ export default Controller.extend({
     _activeFile: null,
     chosenFile: null,
 
-    queryParams: { chosenFile: 'file' },
-
     hasTags: bool('node.tags.length'),
     expandedAbstract: navigator.userAgent.includes('Prerender'),
+
+    node: alias('model.node'),
 
     // The currently selected file (defaults to primary)
     activeFile: computed('model', {
@@ -117,17 +117,17 @@ export default Controller.extend({
             }
 
             return action.save()
-                .then(() => {
-                    this.toggleProperty('savingAction');
-                    this.transitionToRoute('preprints.provider.moderation', {
-                        queryParams: { status: filter, page: 1, sort: '-date_last_transitioned' },
-                    });
-                })
-                .catch(() => {
-                    this.toggleProperty('savingAction');
-                    return this.get('toast')
-                        .error(this.get('i18n').t('components.preprint-status-banner.error'));
-                });
+                .then(this._toModerationList.bind(this, { status: filter, page: 1, sort: '-date_last_transitioned' }))
+                .catch(this._notifySubmitFailure.bind(this))
+                .finally(() => this.toggleProperty('savingAction'));
         },
+    },
+
+    _toModerationList(queryParams) {
+        this.transitionToRoute('preprints.provider.moderation', { queryParams });
+    },
+
+    _notifySubmitFailure() {
+        this.get('toast').error(this.get('i18n').t('components.preprint-status-banner.error'));
     },
 });

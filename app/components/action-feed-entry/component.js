@@ -33,13 +33,6 @@ const CLASS_NAMES = Object.freeze({
 export default Component.extend({
     i18n: service(),
 
-    click(event) {
-        if (!event.originalEvent.target.href) {
-            this.get('toDetail')(this.get('action.provider'), this.get('action.target'));
-            return true;
-        }
-    },
-
     iconClass: computed('action.actionTrigger', function() {
         return CLASS_NAMES[this.get('action.actionTrigger')];
     }),
@@ -48,11 +41,18 @@ export default Component.extend({
         return ICONS[this.get('action.actionTrigger')];
     }),
 
-    message: computed('action.actionTrigger', 'action.provider', function() {
+    message: computed('action.{actionTrigger,provider}', function() {
         const i18n = this.get('i18n');
         return i18n.t(`components.action-feed-entry.action_message.${this.get('action.actionTrigger')}`, {
             providerName: this.get('action.provider.name'),
             documentType: i18n.t(`documentType.${this.get('action.provider.preprintWord')}.singular`),
         });
     }),
+
+    click(event) {
+        if (!event.originalEvent.target.href) {
+            this.get('toDetail')(this.get('action.provider'), this.get('action.target'));
+            return true;
+        }
+    },
 });

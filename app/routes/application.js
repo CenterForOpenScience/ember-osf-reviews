@@ -41,11 +41,13 @@ export default Route.extend(OSFAgnosticAuthRouteMixin, {
         if (!this.get('session.isAuthenticated')) {
             this.replaceWith('index');
         } else {
-            return this.get('currentUser.user').then((user) => {
-                if (!user.get('canViewReviews')) {
-                    this.replaceWith('index');
-                }
-            });
+            return this.get('currentUser.user').then(this._checkUserPermission.bind(this));
+        }
+    },
+
+    _checkUserPermission(user) {
+        if (!user.get('canViewReviews')) {
+            this.replaceWith('index');
         }
     },
 });

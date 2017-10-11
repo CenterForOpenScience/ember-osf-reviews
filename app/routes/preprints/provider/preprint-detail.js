@@ -12,6 +12,15 @@ export default Route.extend({
         return this.store.findRecord('preprint', params.preprint_id, { include: ['node', 'license', 'actions'] });
     },
 
+    setupController() {
+        scheduleOnce('afterRender', this, function() {
+            if (!MathJax) return;
+            MathJax.Hub.Queue(['Typeset', MathJax.Hub, [$('.abstract')[0], $('#preprintTitle')[0]]]); // jshint ignore:line
+        });
+
+        return this._super(...arguments);
+    },
+
     renderTemplate(controller, model) {
         // We're a special page.
         // Render into the applications outlet rather than the `provider` outlet.
@@ -20,15 +29,6 @@ export default Route.extend({
             into: 'application',
             model,
         });
-    },
-
-    setupController() {
-        scheduleOnce('afterRender', this, function() {
-            if (!MathJax) return;
-            MathJax.Hub.Queue(['Typeset', MathJax.Hub, [$('.abstract')[0], $('#preprintTitle')[0]]]); // jshint ignore:line
-        });
-
-        return this._super(...arguments);
     },
 
     actions: {

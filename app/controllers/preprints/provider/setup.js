@@ -13,28 +13,6 @@ export default Controller.extend({
     reviewsCommentsPrivate: true,
     reviewsCommentsAnonymous: true,
 
-    _t(key, tpl = {}) {
-        return this.get('i18n').t(`provider_settings.${key}`, tpl);
-    },
-
-    _buildOption(setting, option) {
-        return {
-            value: option,
-            title: this._t(`${setting.name}.options.${option}.title`),
-            description: this._t(`${setting.name}.options.${option}.description`),
-        };
-    },
-
-    _buildSetting(setting) {
-        return {
-            disabled: setting.disabled,
-            attributeName: setting.name,
-            title: this._t(`${setting.name}.title`),
-            description: this._t(`${setting.name}.description`),
-            options: setting.options.map(this._buildOption.bind(this, setting)),
-        };
-    },
-
     providerSettings: computed('model', 'reviewsCommentsPrivate', function() {
         const settings = ENV.PROVIDER_SETTINGS.map(this._buildSetting.bind(this));
         // Tie anon comments to private comments
@@ -58,16 +36,44 @@ export default Controller.extend({
                 this.set('reviewsCommentsAnonymous', true);
             }
 
-            this.get('model').save().catch(() => {
-                this.get('model').rollbackAttributes();
-
-                this.get('toast').error(
-                    this.get('i18n').t('setup.error.message').toString(),
-                    this.get('i18n').t('setup.error.title').toString(),
-                );
-            }).then(() => {
-                return this.transitionToRoute('preprints.provider.settings', this.get('model'));
-            });
+            this.get('model').save()
+                .then(this._toSettings.bind(this))
+                .catch(this._submitFailed.bind(this));
         },
+    },
+
+    _t(key, tpl = {}) {
+        return this.get('i18n').t(`provider_settings.${key}`, tpl);
+    },
+
+    _buildOption(setting, option) {
+        return {
+            value: option,
+            title: this._t(`${setting.name}.options.${option}.title`),
+            description: this._t(`${setting.name}.options.${option}.description`),
+        };
+    },
+
+    _buildSetting(setting) {
+        return {
+            disabled: setting.disabled,
+            attributeName: setting.name,
+            title: this._t(`${setting.name}.title`),
+            description: this._t(`${setting.name}.description`),
+            options: setting.options.map(this._buildOption.bind(this, setting)),
+        };
+    },
+
+    _submitFailed() {
+        this.get('model').rollbackAttributes();
+
+        this.get('toast').error(
+            this.get('i18n').t('setup.error.message').toString(),
+            this.get('i18n').t('setup.error.title').toString(),
+        );
+    },
+
+    _toSettings() {
+        this.transitionToRoute('preprints.provider.settings', this.get('model'));
     },
 });

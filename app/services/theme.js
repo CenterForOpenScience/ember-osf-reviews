@@ -1,6 +1,6 @@
 import { getOwner } from '@ember/application';
 import $ from 'jquery';
-import { computed, observer, get } from '@ember/object';
+import { computed, get } from '@ember/object';
 import { alias, empty, not, equal } from '@ember/object/computed';
 import Service, { inject as service } from '@ember/service';
 import config from 'ember-get-config';
@@ -41,8 +41,21 @@ export default Service.extend({
         return baseURL;
     }),
 
-    onProviderLoad: observer('provider', function() {
+    loadProvider(id) {
+        return this.get('store').findRecord(
+            'preprint-provider',
+            id.toLowerCase(),
+            {
+                reload: true,
+                backgroundReload: false,
+                adapterOptions: { query: { related_counts: true } },
+            },
+        ).then(this._onProviderLoad.bind(this));
+    },
+
+    _onProviderLoad(provider) {
         const locale = getOwner(this).factoryFor(`locale:${this.get('i18n.locale')}/translations`).class;
+        this.set('provider', provider);
         this.get('i18n').addGlobals({
             provider: {
                 id: this.get('provider.id'),
@@ -50,13 +63,6 @@ export default Service.extend({
                 type: get(locale, `documentType.${this.get('provider.preprintWord')}`),
             },
         });
-    }),
-
-    loadProvider(id) {
-        return this.get('store').findRecord('preprint-provider', id.toLowerCase(), { reload: true, backgroundReload: false, adapterOptions: { query: { related_counts: true } } }).then((provider) => {
-            this.set('provider', provider);
-            return provider;
-        });
+        return provider;
     },
-
 });

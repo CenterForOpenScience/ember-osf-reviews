@@ -28,18 +28,10 @@ export default Component.extend({
 
     classNames: ['moderation-list-row'],
 
-    iconClass: {
-        accepted: 'fa-check-circle-o accepted',
-        pending: 'fa-hourglass-o pending',
-        rejected: 'fa-times-circle-o rejected',
-    },
+    dataLoading: computed.not('firstContributors.length'),
 
     firstContributors: computed('submission.node.contributors', function() {
         return this.get('submission.node.contributors').slice(0, 3);
-    }),
-
-    dataLoading: computed('firstContributors', function () {
-        return this.get('firstContributors.length') == 0;
     }),
 
     additionalContributors: computed('submission.node.contributors', function() {
@@ -67,4 +59,14 @@ export default Component.extend({
             'components.moderation-list-row.submission.by' :
             'components.moderation-list-row.submission.submission_by';
     }),
+
+    init() {
+        this._super(...arguments);
+
+        this.iconClass = {
+            accepted: 'fa-check-circle-o accepted',
+            pending: 'fa-hourglass-o pending',
+            rejected: 'fa-times-circle-o rejected',
+        };
+    },
 });

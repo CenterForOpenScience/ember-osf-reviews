@@ -13,9 +13,8 @@ export default Route.extend({
     theme: service(),
 
     model(params) {
-        return this.get('theme').loadProvider(params.provider_id).catch(() => {
-            this.replaceWith('page-not-found');
-        });
+        return this.get('theme').loadProvider(params.provider_id)
+            .catch(() => this.replaceWith('page-not-found'));
     },
 
     afterModel(model, transition) {
