@@ -24,11 +24,6 @@
                         {{t "content.orphan_preprint"}}
                     </div>
                 {{else}}
-                    {{#if (not node.public)}}
-                        <div class="alert alert-danger m-r-md" role="alert">
-                            {{t "content.private_preprint_warning"}} <a href={{node.links.html}}>{{node.title}} </a> {{t "content.public"}}.
-                        </div>
-                    {{/if}}
                     {{preprint-file-browser primaryFile=model.primaryFile preprint=model chooseFile=(action 'chooseFile')}}
                     <button class="expand-mfr-carrot hidden-xs hidden-sm" {{action 'expandMFR'}}>
                         <i class="fa fa-chevron-{{if fullScreenMFR 'left' 'right'}}"></i>
