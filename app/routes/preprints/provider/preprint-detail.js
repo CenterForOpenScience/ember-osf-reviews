@@ -13,10 +13,7 @@ export default Route.extend({
     },
 
     afterModel(model) {
-        if (!model.get('node.public')) {
-            return this.transitionTo('page-not-found');
-        }
-        return this._super(...arguments);
+        return model.get('node').then(this._checkNodePublic.bind(this));
     },
 
     setupController() {
@@ -44,5 +41,11 @@ export default Route.extend({
                 return this.intermediateTransitionTo('page-not-found');
             }
         },
+    },
+
+    _checkNodePublic(node) {
+        if (!node.get('public')) {
+            this.transitionTo('page-not-found');
+        }
     },
 });
