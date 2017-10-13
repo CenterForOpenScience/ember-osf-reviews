@@ -6,16 +6,11 @@ a {
   font-weight: bolder;
 }
 
-// for not firefox
 .separator {
-  content: url('img/separator.png');
+  background: url('img/separator.png') no-repeat;
+  display: inline-block;
   vertical-align: middle;
-  padding: 0px 5px 2px 5px;
-}
-
-// for firefox https://stackoverflow.com/questions/17907833/content-url-does-not-display-image-on-firefox-browser
-.separator::after {
-  content: url('img/separator.png');
-  vertical-align: middle;
-  padding: 0px 5px 2px 5px;
+  height: 13px;
+  width: 6px;
+  margin: 0px 5px;
 }
