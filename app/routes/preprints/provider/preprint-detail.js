@@ -19,7 +19,7 @@ export default Route.extend({
     setupController() {
         scheduleOnce('afterRender', this, function() {
             if (!MathJax) return;
-            MathJax.Hub.Queue(['Typeset', MathJax.Hub, [$('.abstract')[0], $('#preprintTitle')[0]]]); // jshint ignore:line
+            MathJax.Hub.Queue(['Typeset', MathJax.Hub, [$('.abstract')[0], $('#preprintTitle')[0]]]);
         });
 
         return this._super(...arguments);
