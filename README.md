@@ -1,5 +1,11 @@
 # OSF Reviews
 
+`master` Build Status: [![Build Status](https://travis-ci.org/CenterForOpenScience/ember-osf-reviews.svg?branch=master)](https://travis-ci.org/CenterForOpenScience/ember-osf-reviews)
+[![Coverage Status](https://coveralls.io/repos/github/CenterForOpenScience/ember-osf-reviews/badge.svg?branch=master)](https://coveralls.io/github/CenterForOpenScience/ember-osf-reviews?branch=master)
+
+`develop` Build Status: [![Build Status](https://travis-ci.org/CenterForOpenScience/ember-osf-reviews.svg?branch=develop)](https://travis-ci.org/CenterForOpenScience/ember-osf-reviews)
+[![Coverage Status](https://coveralls.io/repos/github/CenterForOpenScience/ember-osf-reviews/badge.svg?branch=develop)](https://coveralls.io/github/CenterForOpenScience/ember-osf-reviews?branch=develop)
+
 This README outlines the details of collaborating on this OSF Reviews Ember application.
 
 ## Prerequisites
