@@ -82,9 +82,7 @@ test('it renders moderation-list-row pending with actions', function(assert) {
             }),
         ],
         reviewsState: 'pending',
-        node: EmberObject.create({
-            contributors: [{ users: { fullName: 'Mr. Ping' } }, { users: { fullName: 'Mantis' } }],
-        }),
+        contributors: [{ users: { fullName: 'Mr. Ping' } }, { users: { fullName: 'Mantis' } }],
     });
     this.render(hbs`{{moderation-list-row submission=submission}}`);
     assert.equal(this.$('[data-status=pending]').text().replace(/\n/g, ' ').trim(), 'submitted on October 27, 2017 by Mr. Ping Mantis');
@@ -102,19 +100,17 @@ test('it renders moderation-list-row pending with actions and more than three co
             }),
         ],
         reviewsState: 'pending',
-        node: EmberObject.create({
-            contributors: [
-                { users: { fullName: 'Mr. Ping' } },
-                { users: { fullName: 'Mantis' } },
-                { users: { fullName: 'Crane' } },
-                { users: { fullName: 'Tai Lung' } },
-            ],
-        }),
+        contributors: [
+            { users: { fullName: 'Mr. Ping' } },
+            { users: { fullName: 'Mantis' } },
+            { users: { fullName: 'Crane' } },
+            { users: { fullName: 'Tai Lung' } },
+        ],
     });
-    this.set('submission.node.contributors.content', {
+    this.set('submission.contributors.content', {
         meta: {
             pagination: {
-                total: this.get('submission.node.contributors.length'),
+                total: this.get('submission.contributors.length'),
             },
         },
     });

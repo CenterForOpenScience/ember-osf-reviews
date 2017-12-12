@@ -287,12 +287,6 @@ test('fileDownloadURL computed property', function (assert) {
     const ctrl = this.subject();
 
     run(() => {
-        const origin = 'http://localhost:4200';
-
-        const window = { location: { origin } };
-
-        ctrl.set('window', window);
-
         const node = this.store.createRecord('node', {
             description: 'test description',
         });
@@ -302,6 +296,8 @@ test('fileDownloadURL computed property', function (assert) {
         ctrl.setProperties({ model });
         ctrl.set('model.id', '6gtu');
 
-        assert.strictEqual(ctrl.get('fileDownloadURL'), 'http://localhost:4201/6gtu/download');
+        const { location: { origin } } = window;
+
+        assert.strictEqual(ctrl.get('fileDownloadURL'), `${origin}/6gtu/download`);
     });
 });

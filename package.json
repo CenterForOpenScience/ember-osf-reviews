@@ -48,6 +48,7 @@
     "ember-font-awesome": "^3.0.0",
     "ember-i18n": "5.0.2",
     "ember-load-initializers": "^1.0.0",
+    "ember-mockdate-shim": "^0.1.0",
     "ember-moment": "^7.4.1",
     "ember-parachute": "^0.3.5",
     "ember-radio-button": "^1.1.1",
