@@ -287,12 +287,6 @@ test('fileDownloadURL computed property', function (assert) {
     const ctrl = this.subject();
 
     run(() => {
-        const origin = 'http://localhost:4200';
-
-        const window = { location: { origin } };
-
-        ctrl.set('window', window);
-
         const node = this.store.createRecord('node', {
             description: 'test description',
         });
@@ -302,6 +296,32 @@ test('fileDownloadURL computed property', function (assert) {
         ctrl.setProperties({ model });
         ctrl.set('model.id', '6gtu');
 
-        assert.strictEqual(ctrl.get('fileDownloadURL'), 'http://localhost:4201/6gtu/download');
+        const url = ctrl.get('fileDownloadURL').split(ctrl.get('model.id'));
+        assert.strictEqual(url[1], '/download');
     });
+});
+
+test('hideWarning action', function (assert) {
+    const ctrl = this.subject();
+    ctrl.set('showWarning', true);
+    ctrl.send('hideWarning');
+    assert.ok(!ctrl.get('showWarning'));
+});
+
+test('leavePage action', function (assert) {
+    const ctrl = this.subject();
+
+    ctrl.send('leavePage');
+    assert.ok(!ctrl.get('showWarning'));
+    assert.ok(!ctrl.get('userHasEnteredReview'));
+
+    const stubTransition = { retry() {} };
+    const stub = this.stub(stubTransition, 'retry');
+    ctrl.set('previousTransition', stubTransition);
+    ctrl.set('userHasEnteredReview', true);
+    ctrl.set('showWarning', true);
+    ctrl.send('leavePage');
+    assert.ok(!ctrl.get('showWarning'));
+    assert.ok(!ctrl.get('userHasEnteredReview'));
+    assert.ok(stub.calledOnce);
 });

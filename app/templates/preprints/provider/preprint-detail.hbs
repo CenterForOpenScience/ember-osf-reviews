@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    {{preprint-status-banner submission=model saving=savingAction submitDecision=(action 'submitDecision')}}
+    {{preprint-status-banner submission=model saving=savingAction userHasEnteredReview=userHasEnteredReview submitDecision=(action 'submitDecision')}}
 
     <div id="view-page" class="container">
         <div class="row p-md">
@@ -136,4 +136,15 @@
 
         </div>
     </div>
+
+    {{#bs-modal open=showWarning onHide=(action 'hideWarning') as |modal|}}
+        {{#modal.header}}
+            <div class="warning-header"><i class="fa fa-exclamation-triangle"></i> {{t 'content.warning.header'}}</div>
+        {{/modal.header}}
+        {{#modal.body}}<div class="warning-body">{{t 'content.warning.body'}}</div>{{/modal.body}}
+        {{#modal.footer}}
+            {{#bs-button onClick=(action 'hideWarning') type="info"}}{{t 'content.warning.footer.stay'}}{{/bs-button}}
+            {{#bs-button onClick=(action 'leavePage')}}{{t 'content.warning.footer.leave'}}{{/bs-button}}
+        {{/modal.footer}}
+    {{/bs-modal}}
 </div>

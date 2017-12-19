@@ -166,6 +166,14 @@ export default {
             paragraph: 'The project for this paper is available on the OSF.',
             button: 'Visit project',
         },
+        warning: {
+            header: 'Discard your feedback',
+            body: 'Are you sure you want to leave without submitting your feedback? Your feedback will be discarded.',
+            footer: {
+                leave: 'Leave this page',
+                stay: 'Stay on this page',
+            },
+        },
     },
     components: {
         actionFeed: {

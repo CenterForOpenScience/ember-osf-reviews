@@ -121,6 +121,8 @@ export default Component.extend({
 
     commentExceedsLimit: computed.gt('reviewerComment.length', COMMENT_LIMIT),
 
+    userActivity: computed.or('commentEdited', 'decisionChanged'),
+
     commentLengthErrorMessage: computed('reviewerComment', function () {
         const i18n = this.get('i18n');
         return i18n.t('components.preprintStatusBanner.decision.commentLengthError', {
@@ -224,14 +226,12 @@ export default Component.extend({
     }),
 
     decisionChanged: computed('submission.reviewsState', 'decision', function() {
-        return this.get('submission.reviewsState') !== this.get('decision');
+        return ((this.get('submission.reviewsState') !== this.get('decision') && this.get('submission.reviewsState') !== PENDING) ||
+        (this.get('submission.reviewsState') === PENDING && this.get('decision') !== ACCEPTED));
     }),
 
     btnDisabled: computed('decisionChanged', 'commentEdited', 'saving', 'commentExceedsLimit', function() {
-        if (this.get('saving') || (!this.get('decisionChanged') && !this.get('commentEdited')) || this.get('commentExceedsLimit')) {
-            return true;
-        }
-        return false;
+        return this.get('saving') || (!this.get('decisionChanged') && !this.get('commentEdited')) || this.get('commentExceedsLimit');
     }),
 
     didInsertElement() {
@@ -256,6 +256,9 @@ export default Component.extend({
         cancel() {
             this.set('decision', this.get('submission.reviewsState'));
             this.set('reviewerComment', this.get('initialReviewerComment'));
+        },
+        closeReviewerFeedback() {
+            this.set('userHasEnteredReview', this.get('userActivity'));
         },
     },
 

@@ -12,3 +12,15 @@ section.preprint-license {
     width: 100%;
   }
 }
+
+.warning-header {
+  font-size: 20px;
+  padding: 5px 15px 8px 15px;
+
+  a {
+    color: $color-text-gray-dark;
+  }
+}
+.setting-reminder {
+  font-size: 14px;
+}

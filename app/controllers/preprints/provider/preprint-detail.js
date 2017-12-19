@@ -34,6 +34,10 @@ export default Controller.extend({
     _activeFile: null,
     chosenFile: null,
 
+    userHasEnteredReview: false,
+    showWarning: false,
+    previousTransition: null,
+
     hasTags: bool('node.tags.length'),
     expandedAbstract: navigator.userAgent.includes('Prerender'),
 
@@ -102,6 +106,17 @@ export default Controller.extend({
                 chosenFile: fileItem.get('id'),
                 activeFile: fileItem,
             });
+        },
+        leavePage() {
+            const previousTransition = this.get('previousTransition');
+            if (previousTransition) {
+                this.set('userHasEnteredReview', false);
+                this.set('showWarning', false);
+                previousTransition.retry();
+            }
+        },
+        hideWarning() {
+            this.set('showWarning', false);
         },
         submitDecision(trigger, comment, filter) {
             this.toggleProperty('savingAction');
