@@ -54,9 +54,9 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@centerforopenscience/ember-osf@https://github.com/laurenbarker/ember-osf#bddae519b7419189c83dc8886fd99c63ef4d82fa":
+"@centerforopenscience/ember-osf@https://github.com/CenterForOpenScience/ember-osf#feature/reviews#2017-12-21":
   version "0.11.1"
-  resolved "https://github.com/laurenbarker/ember-osf#bddae519b7419189c83dc8886fd99c63ef4d82fa"
+  resolved "https://github.com/CenterForOpenScience/ember-osf#a51c80280802b55edfa0c5a9af2dd7c8bfee0c2f"
   dependencies:
     bootstrap-sass "^3.3.7"
     broccoli-funnel "1.2.0"
