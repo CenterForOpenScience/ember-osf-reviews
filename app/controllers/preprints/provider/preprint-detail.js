@@ -27,6 +27,7 @@ export default Controller.extend({
     i18n: service(),
     toast: service(),
     store: service(),
+    theme: service(),
 
     queryParams: { chosenFile: 'file' },
 
@@ -64,6 +65,7 @@ export default Controller.extend({
         const { location: { origin } } = window;
         return [
             origin,
+            this.get('theme.id') !== 'osf' ? `preprints/${this.get('theme.id')}` : null,
             this.get('preprint.id'),
             'download',
         ].filter(part => !!part).join('/');
