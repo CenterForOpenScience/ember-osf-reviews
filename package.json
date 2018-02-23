@@ -65,7 +65,7 @@
   },
   "private": true,
   "dependencies": {
-    "@centerforopenscience/osf-style": "^1.4.2",
+    "@centerforopenscience/osf-style": "https://github.com/CenterForOpenScience/osf-style#develop",
     "autoprefixer": "^7.1.2",
     "bootstrap-sass": "^3.3.7",
     "cssnano": "^3.10.0",
