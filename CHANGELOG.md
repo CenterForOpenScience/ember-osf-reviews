@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2018-03-01
+### Added
+- Tests for download URL for branded and un-branded providers
+
+### Fixed
+- Download URL on preprint-detail page to work for admin and moderators on pre-moderation
+
 ## [0.3.0] - 2018-01-10
 ### Changed
 - Update `action` to `review-action` to reflect changes in OSF's API and ember-osf

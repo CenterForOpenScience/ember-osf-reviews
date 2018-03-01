@@ -280,28 +280,64 @@ test('submitDecision action', function (assert) {
     });
 });
 
-test('fileDownloadURL computed property', function (assert) {
+test('fileDownloadURL computed property - non-branded provider', function (assert) {
     this.inject.service('store');
     this.inject.service('theme');
+
+    this.theme.id = 'osf';
 
     const ctrl = this.subject();
 
     run(() => {
-        const origin = 'http://localhost:4200';
-
-        const window = { location: { origin } };
-
-        ctrl.set('window', window);
+        const provider = this.store.createRecord('preprint-provider', {
+            name: 'osf',
+            reviewsWorkflow: 'pre-moderation',
+        });
 
         const node = this.store.createRecord('node', {
             description: 'test description',
         });
 
-        const model = this.store.createRecord('preprint', { node });
+        const preprint = this.store.createRecord('preprint', {
+            provider,
+            node,
+        });
 
-        ctrl.setProperties({ model });
-        ctrl.set('model.id', '6gtu');
+        ctrl.setProperties({ preprint });
+        ctrl.set('preprint.id', '6gtu');
 
         assert.strictEqual(ctrl.get('fileDownloadURL'), 'http://localhost:4201/6gtu/download');
+    });
+});
+
+test('fileDownloadURL computed property - branded provider', function(assert) {
+    this.inject.service('store');
+    this.inject.service('theme');
+
+    this.theme.id = 'engrxiv';
+
+    const ctrl = this.subject();
+
+    run(() => {
+        const provider = this.store.createRecord('preprint-provider', {
+            name: 'engrxiv',
+            reviewsWorkflow: 'pre-moderation',
+        });
+
+        const node = this.store.createRecord('node', {
+            description: 'test description',
+        });
+
+        const preprint = this.store.createRecord('preprint', {
+            provider,
+            node,
+        });
+
+        ctrl.setProperties({ preprint });
+        ctrl.set('preprint.id', '6gtu');
+
+        const { location: { origin } } = window;
+
+        assert.strictEqual(ctrl.get('fileDownloadURL'), `${origin}/preprints/engrxiv/6gtu/download`);
     });
 });

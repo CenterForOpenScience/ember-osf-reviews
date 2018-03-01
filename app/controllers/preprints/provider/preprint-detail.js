@@ -24,6 +24,7 @@ export default Controller.extend({
     i18n: service(),
     theme: service(),
     toast: service(),
+    store: service(),
 
     queryParams: { chosenFile: 'file' },
 
@@ -49,11 +50,12 @@ export default Controller.extend({
         },
     }),
 
-    fileDownloadURL: computed('model', function() {
+    fileDownloadURL: computed('preprint', function() {
         const { location: { origin } } = window;
         return [
             origin,
-            this.get('model.id'),
+            this.get('theme.id') !== 'osf' ? `preprints/${this.get('theme.id')}` : null,
+            this.get('preprint.id'),
             'download',
         ].filter(part => !!part).join('/');
     }),
