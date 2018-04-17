@@ -8,6 +8,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Download links for moderators
 
+## Added
+- Added `preprintPendingDOIMinted` translation string to show message when DOI is being minted.
+- Added `mergedContext` function in `services/i18n.js` to fix interpolation for translation strings.
+
+## Changed
+- ember-cli-moment-shim version to `^3.5.3` due to security issues found in `moment` versions before `2.19.3`
+- reviews to use ember-osf version of `queryHasMany`
+- `osf-style` to use the latest version with navbar changes
+- Make use of `provider-service` property `documentType` to unify translations of preprint words.
+
+
+## Removed
+- Unneeded node calls to reflect divorce changes
+- Some hacks in `applcation.js` that get translations for different preprint words.
+
 ## [0.4.1] - 2018-03-06
 ### Fixed
 - Updating of decisions immediately after accepting or rejecting
@@ -18,10 +33,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Route specific loading page for the moderation-detail page
 - Tests for provider setup controller
 
-### Changed
-- Update language 
+## Changed
+- Update language
   - Add `Submitted by` along with the `accepted by/rejected by` for the accepted/rejected records in the moderation list
-  - Capitalize first letter (e.g `submitted by` to `Submitted by`) 
+  - Capitalize first letter (e.g `submitted by` to `Submitted by`)
 - Upgraded ember-cli to 2.16.2
 
 ## [0.3.1] - 2018-03-01
@@ -64,7 +79,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Use COS ember-base image and multi-stage build
   - Notify DevOps prior to merging into master to update Jenkins
 - Show moderator name (instead of creator) in the accepted/rejected records in the moderation list
-- Update style/layout for Reviews to be more mobile friendly 
+- Update style/layout for Reviews to be more mobile friendly
 
 ### Removed
 - Remove name link from action logs in the dashboard view
