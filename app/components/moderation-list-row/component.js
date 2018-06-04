@@ -51,7 +51,7 @@ export default Component.extend({
 
     // count of contributors in-addition to the first three
     additionalContributors: computed('submission.contributors', function() {
-        return this.get('submission.contributors.content.meta.pagination.total') - 3;
+        return this.get('submission.contributors.content.meta.total') - 3;
     }),
 
     // translations for moderator action label

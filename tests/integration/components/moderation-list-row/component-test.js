@@ -115,11 +115,7 @@ test('it renders moderation-list-row pending with reviewActions and more than th
         ],
     });
     this.set('submission.contributors.content', {
-        meta: {
-            pagination: {
-                total: this.get('submission.contributors.length'),
-            },
-        },
+        meta: { total: this.get('submission.contributors.length') },
     });
     this.render(hbs`{{moderation-list-row submission=submission}}`);
     assert.equal(this.$('[data-status=pending]').text().replace(/\s+/g, ' ').trim(), 'Submitted on December 26, 2017 by Mr. Ping Mantis Crane + 1');
