@@ -1,5 +1,5 @@
-<div class="moderators-add-row-container p-h-md p-v-sm">
-    <div class="moderator-name">
+<div local-class="moderators-add-row-container" class="p-h-md p-v-sm">
+    <div local-class="moderator-name">
         {{#if (not selectedUnregisteredUser)}}
             {{#power-select
                 disabled=loadingModerators
@@ -18,12 +18,12 @@
         {{/if}}
         {{#if showInviteForm}}
             <span class="p-l-xs">or</span>
-            {{#bs-dropdown classNames="invite-dropdown" closeOnMenuClick=false as |dd|}}
-                {{#dd.toggle id="toggle-form" classNames="btn dropdown-link"}}
+            {{#bs-dropdown classNames=(local-class 'invite-dropdown') closeOnMenuClick=false as |dd|}}
+                {{#dd.toggle id="toggle-form" classNames=(concat 'btn ' (local-class 'dropdown-link'))}}
                     {{t 'components.moderatorListAdd.inviteText'}}
                 {{/dd.toggle}}
-                {{#dd.menu classNames="unregistered-dropdown" tagName="div" as |menu|}}
-                    {{#menu.item classNames="unregistered-form" tagName="form"}}
+                {{#dd.menu classNames=(local-class 'unregistered-dropdown') tagName="div" as |menu|}}
+                    {{#menu.item classNames=(local-class 'unregistered-form') tagName="form"}}
                         <div>
                             <label>{{t "components.unregisteredContributorForm.fullNameLabel"}}</label>
                             <form>
@@ -60,12 +60,12 @@
             {{/bs-dropdown}}
         {{/if}}
     </div>
-    {{#bs-dropdown classNames="role-dropdown" as |dd|}}
+    {{#bs-dropdown classNames=(local-class 'role-dropdown') as |dd|}}
         {{#dd.button classNames="btn btn-default dropdown-button"}}
             {{roleLabel}}
             <span class="fa fa-caret-down p-l-xs"></span>
         {{/dd.button}}
-        {{#dd.menu classNames="moderator-dropdown-menu" as |menu|}}
+        {{#dd.menu classNames=(local-class 'moderator-dropdown-menu') as |menu|}}
             {{#each roleOptions as |roleOption|}}
                 {{#menu.item}}
                     <button class="btn" {{action 'roleChanged' roleOption.role}}>
@@ -76,7 +76,7 @@
             {{/each}}
         {{/dd.menu}}
     {{/bs-dropdown}}
-    <div class="row-controls">
+    <div local-class="row-controls">
         <button class="btn btn-default" {{action 'cancel'}} disabled={{addModerator.isRunning}}>
             {{t 'global.cancel'}}
         </button>

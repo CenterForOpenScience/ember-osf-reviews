@@ -1,5 +1,5 @@
-<div class="moderators-list-row-container p-h-md p-v-sm">
-    <div class="moderator-name">
+<div local-class="moderators-list-row-container" class="p-h-md p-v-sm">
+    <div local-class="moderator-name">
         {{#if fetchData.isRunning}}
             <div class="name--skeleton">
                 {{#content-placeholders as |placeholder|}}
@@ -16,12 +16,12 @@
         {{/if}}
     </div>
     {{#if isAdmin}}
-        {{#bs-dropdown classNames="role-dropdown" as |dd|}}
+        {{#bs-dropdown classNames=(local-class 'role-dropdown') as |dd|}}
             {{#dd.button classNames="btn btn-default dropdown-button" disabled=disableRoleSelect}}
                 {{roleLabel}}
                 <span class="fa fa-caret-down p-l-xs"></span>
             {{/dd.button}}
-            {{#dd.menu classNames="moderator-dropdown-menu" as |menu|}}
+            {{#dd.menu classNames=(local-class 'moderator-dropdown-menu') as |menu|}}
                 {{#each roleOptions as |roleOption|}}
                     {{#menu.item}}
                         <button class="btn" {{action 'roleChanged' roleOption.role}}>
@@ -32,7 +32,7 @@
                 {{/each}}
             {{/dd.menu}}
         {{/bs-dropdown}}
-        <div class="row-controls">
+        <div local-class="row-controls">
             {{#if removeConfirmation}}
                 <button class="btn btn-default" {{action 'cancel'}} disabled={{removeModerator.isRunning}}>
                     {{t 'global.cancel'}}
@@ -65,11 +65,12 @@
                         {{t 'components.moderatorList.adminDisabledMessage'}}
                     {{/bs-tooltip}}
                 {{/if}}
-                <a role="button" class="remove-button {{if disableRemove 'disabled'}}" {{action 'removeInitiated'}}>
+                <a role="button" local-class="remove-button {{if disableRemove 'disabled'}}" {{action 'removeInitiated'}}>
                     <i class="fa fa-times fa-lg "></i>
                 </a>
             {{/if}}
         </div>
     {{/if}}
 </div>
+
 <div class="moderators-row-border"></div>
