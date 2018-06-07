@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - Prevent whitespace under banners
+- Prevent banner from loading on `preprint-detail` page if preprint is undefined
 
 ## [0.5.1] - 2018-04-24
 ### Changed
