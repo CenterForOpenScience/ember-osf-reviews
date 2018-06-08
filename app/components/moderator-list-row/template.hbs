@@ -65,7 +65,7 @@
                         {{t 'components.moderatorList.adminDisabledMessage'}}
                     {{/bs-tooltip}}
                 {{/if}}
-                <a role="button" local-class="remove-button {{if disableRemove 'disabled'}}" {{action 'removeInitiated'}}>
+                <a role="button" local-class="remove-button" class="{{if disableRemove 'disabled'}}" {{action 'removeInitiated'}}>
                     <i class="fa fa-times fa-lg "></i>
                 </a>
             {{/if}}
