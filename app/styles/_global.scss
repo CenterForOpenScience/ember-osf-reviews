@@ -58,3 +58,30 @@ body > :global(.ember-view) {
     border-radius: 8px;
     font-weight: bold;
 }
+
+:global(.name--skeleton) {
+    width: 100%;
+
+    > div {
+        align-items: center;
+        display: inline-flex;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    :global(.ember-content-placeholders-text) {
+        width: 150px;
+    }
+
+    :global(.ember-content-placeholders-text__line) {
+        margin-bottom: 0;
+    }
+}
+
+:global(.gravatar--skeleton) {
+    width: 30px;
+
+    :global(.ember-content-placeholders-img) {
+        height: 30px;
+    }
+}

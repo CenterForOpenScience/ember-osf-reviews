@@ -1,6 +1,11 @@
 .provider-links-component {
     margin-top: 15px;
     padding-bottom: 10px;
+
+    :global(.ember-content-placeholders-heading__content) {
+        margin-top: 5px;
+        max-width: 260px;
+    }
 }
 
 .icon {
@@ -34,9 +39,4 @@
 
 .icon--skeleton {
     padding-left: 10px;
-}
-
-.ember-content-placeholders-heading__content {
-    margin-top: 5px;
-    max-width: 260px;
 }

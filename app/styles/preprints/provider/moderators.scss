@@ -35,39 +35,12 @@
     .dropdown--skeleton {
         width: 115px;
 
-        .ember-content-placeholders-img {
+        :global(.ember-content-placeholders-img) {
             height: 32px;
         }
     }
 
     .remove-icon--skeleton {
         justify-self: end;
-    }
-}
-
-:global(.name--skeleton) {
-    width: 100%;
-
-    > div {
-        display: inline-flex;
-        flex-direction: row;
-        align-items: center;
-        width: 100%;
-    }
-
-    .ember-content-placeholders-text {
-        width: 150px;
-    }
-
-    .ember-content-placeholders-text__line {
-        margin-bottom: 0;
-    }
-
-    .gravatar--skeleton {
-        width: 30px;
-
-        .ember-content-placeholders-img {
-            height: 30px;
-        }
     }
 }
