@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    {{#if fetchData.isRunning}}
+    {{#if (or fetchData.isRunning (not preprint))}}
         <div class="preprint-status-component preprint-status-component--skeleton"></div>
     {{else}}
         {{preprint-status-banner submission=preprint saving=savingAction setUserEnteredReview=(action (mut userHasEnteredReview)) submitDecision=(action 'submitDecision')}}

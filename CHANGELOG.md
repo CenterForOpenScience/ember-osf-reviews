@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Use `name` field for contributors on preprint-detail page
+- Prevent banner from loading on `preprint-detail` page if preprint is undefined
 
 ## [0.6.0] - 2018-05-29
 ### Added
@@ -13,7 +16,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Prevent whitespace under banners
-- Use `name` field for contributors on preprint-detail page
 
 ## [0.5.1] - 2018-04-24
 ### Changed
