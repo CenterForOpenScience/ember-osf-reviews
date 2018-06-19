@@ -49,6 +49,11 @@ module.exports = function(environment) {
                     // Ensure development env hits aren't sent to GA.
                     sendHitTask: environment !== 'development',
                 },
+                dimensions: {
+                    authenticated: 'dimension1',
+                    resource: 'dimension2',
+                    isPublic: 'dimension3',
+                },
             },
         ],
         PROVIDER_SETTINGS: [{
