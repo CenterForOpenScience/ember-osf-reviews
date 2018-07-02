@@ -48,6 +48,15 @@ module.exports = function(environment) {
                     trace: environment === 'development',
                     // Ensure development env hits aren't sent to GA.
                     sendHitTask: environment !== 'development',
+                    setFields: {
+                        // Ensure the IP address of the sender will be anonymized.
+                        anonymizeIp: true,
+                    },
+                },
+                dimensions: {
+                    authenticated: 'dimension1',
+                    resource: 'dimension2',
+                    isPublic: 'dimension3',
                 },
             },
         ],
