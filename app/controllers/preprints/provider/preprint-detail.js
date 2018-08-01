@@ -162,7 +162,7 @@ export default Controller.extend({
             { include: ['node', 'license', 'review_actions', 'contributors'] },
         );
         const node = yield response.get('node');
-        if (!node.get('public')) {
+        if (node && !node.get('public')) {
             this.transitionToRoute('page-not-found');
             return;
         }
