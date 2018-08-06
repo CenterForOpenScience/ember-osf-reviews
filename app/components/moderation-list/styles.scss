@@ -48,6 +48,21 @@
     :global(.icon-rejected) {
         -webkit-text-stroke: 1px $color-bg-gray-light;
     }
+    
+    :global(.icon-withdrawn) {
+        -webkit-text-stroke: 1px $color-bg-gray-light;
+    }
+
+    :global(.fa-stack) {
+        line-height: 0.8em;
+        height: 1em;
+        width: 1em;
+    }
+
+    :global(.fa-minus) {
+        font-size: 14px;
+        line-height: 1.25em;
+    }
 
     :global(.dropdown-toggle) {
         color: $color-text-gray-dark;

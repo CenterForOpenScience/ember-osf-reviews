@@ -67,6 +67,24 @@
     }
 }
 
+.preprint-status-withdrawn {
+    background-color: $color-state-danger-bg;
+    color: $color-state-danger-text;
+
+    .status-icon {
+        font-size: 16px;
+        -webkit-text-stroke: 0;
+    }
+}
+
+.icon-stack {
+    height: 1.25em;
+    line-height: 1em;
+    & > .icon-layer-fa-minus {
+        font-size: 10px;
+    }
+}
+
 .status-badge {
     cursor: default;
     display: inline-block;  // required for the text-transform
@@ -138,6 +156,10 @@
 
     .comment-length-error {
         color: $state-danger-text;
+    }
+
+    .withdrawal-reason {
+        font-style: italic;
     }
 }
 
