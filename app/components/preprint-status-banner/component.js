@@ -138,10 +138,16 @@ export default Component.extend({
             this.get('submission.dateLastTransitioned');
     }),
 
-    labelReject: computed('submission.provider.reviewsWorkflow', function() {
-        return this.get('reviewsWorkflow') === 'pre-moderation' ?
-            'components.preprintStatusBanner.decision.reject.label' :
-            'components.preprintStatusBanner.decision.withdrawn.label';
+    labelDecision: computed('submission', function() {
+        return this.get('submission.isPublished') === true ?
+            'components.preprintStatusBanner.decision.withdrawn.label' :
+            'components.preprintStatusBanner.decision.reject.label';
+    }),
+
+    radioDecision: computed('submission', function() {
+        return this.get('submission.isPublished') === true ?
+            'withdrawn' :
+            'rejected';
     }),
 
     isDisabled: computed('latestAction', 'submission.reviewActions.isPending', function() {

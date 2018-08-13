@@ -27,10 +27,17 @@
 
 .withdrawn {
     color: $color-action-reject;
+    
     &:nth-child(2) {
         font-size: 13px;
         padding-left: 24px;
         line-height: 2.5em;
+
+        @media screen and (max-width: 731px) {
+            font-size: 10px;
+            padding-left: 22px;
+            line-height: inherit;
+        }
     }
 }
 
