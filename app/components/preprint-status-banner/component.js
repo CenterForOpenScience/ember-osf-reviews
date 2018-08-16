@@ -195,7 +195,10 @@ export default Component.extend({
     }),
 
     latestAction: computed('submission.reviewActions.[]', function() {
-        return latestAction(this.get('submission.reviewActions'));
+        if (this.get('submission.reviewActions.[]')) {
+            return latestAction(this.get('submission.reviewActions'));
+        }
+        return null;
     }),
 
     noComment: computed('reviewerComment', function() {
