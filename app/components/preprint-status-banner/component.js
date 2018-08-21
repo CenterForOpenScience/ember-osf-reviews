@@ -139,13 +139,13 @@ export default Component.extend({
     }),
 
     labelDecision: computed('submission', function() {
-        return this.get('submission.isPublished') === true ?
+        return this.get('submission.isPublished') ?
             'components.preprintStatusBanner.decision.withdrawn.label' :
             'components.preprintStatusBanner.decision.reject.label';
     }),
 
     radioDecision: computed('submission', function() {
-        return this.get('submission.isPublished') === true ?
+        return this.get('submission.isPublished') ?
             'withdrawn' :
             'rejected';
     }),

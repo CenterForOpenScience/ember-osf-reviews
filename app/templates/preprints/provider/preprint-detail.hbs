@@ -92,7 +92,7 @@
                             </div>
 
                             <section class="p-t-xs">
-                                <h4 class="p-v-md f-w-md"><strong>{{t "content.preprintDOI"}}</strong></h4>
+                                <h4 class="p-v-md f-w-md"><strong>{{t "content.preprintDOI" documentType=preprint.provider.documentType}}</strong></h4>
                                 {{#if preprint.isPublished}}
                                     {{#if preprint.preprintDoiCreated}}
                                         <a href={{preprint.preprintDoiUrl}}>{{extract-doi preprint.preprintDoiUrl}}</a>
@@ -164,7 +164,7 @@
                     </div>
                 </div>
             {{else}}
-                <div class="row p-md" style="margin-bottom: 50px">
+                <div class="row p-md" local-class="withdrawn-column">
                     <div class="col-md-7">
                         {{#if fetchData.isRunning}}
                             {{#content-placeholders as |placeholder|}}
@@ -188,7 +188,7 @@
                             </div>
 
                             <section class="p-t-xs">
-                                <h4 class="p-v-md f-w-md"><strong>{{t "content.preprintDOI"}}</strong></h4>
+                                <h4 class="p-v-md f-w-md"><strong>{{t "content.preprintDOI" documentType=preprint.provider.documentType}}</strong></h4>
                                 {{#if preprint.isPublished}}
                                     {{#if preprint.preprintDoiCreated}}
                                         <a href={{preprint.preprintDoiUrl}}>{{extract-doi preprint.preprintDoiUrl}}</a>
