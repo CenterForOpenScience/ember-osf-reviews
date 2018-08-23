@@ -291,9 +291,9 @@ export default Component.extend({
             if (this.get('submission.reviewsState') !== PENDING && (this.get('commentEdited') && !this.get('decisionChanged'))) {
                 trigger = 'edit_comment';
             } else {
-                const actionType = this.get('reviewsWorkflow') === 'pre-moderation' ?
-                    'reject' :
-                    'withdraw';
+                const actionType = this.get('submission.isPublished') ?
+                    'withdraw' :
+                    'reject';
                 trigger = this.get('decision') === ACCEPTED ? 'accept' : actionType;
             }
 
