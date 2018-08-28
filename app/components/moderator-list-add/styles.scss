@@ -19,8 +19,12 @@
 
     :global(.dropdown-menu) {
         @media (max-width: 768px) {
-            // hacky fix for going off the screen at small sizes
-            left: -165%;
+            left: auto;
+            right: 0;
+        }
+        @media (max-width: 383px) {
+            left: 0;
+            right: auto;
         }
     }
 }
