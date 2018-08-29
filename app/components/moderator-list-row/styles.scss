@@ -62,3 +62,20 @@
         align-items: center;
     }
 }
+
+.name {
+    display: inline-flex;
+    word-break: break-all;
+}
+
+.gravatar {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+
+    @media (max-width: 768px) {
+        width: 25px;
+        height: 25px;
+        min-width: 25px;
+    }
+}
