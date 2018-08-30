@@ -80,7 +80,9 @@ Router.map(function() {
             this.route('moderators');
             this.route('settings');
             this.route('preprint-detail', { path: ':preprint_id' });
+            this.route('preprint-detail-withdrawal', { path: ':preprint_id/withdrawal' });
             this.route('notifications');
+            this.route('withdrawals');
         });
     });
     this.route('dashboard');

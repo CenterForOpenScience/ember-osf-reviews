@@ -33,12 +33,6 @@ export default Controller.extend(Analytics, moderationQueryParams.Mixin, {
         },
         pageChanged(page) {
             this.set('page', page);
-            this.get('metrics')
-                .trackEvent({
-                    category: 'button',
-                    action: 'click',
-                    label: `Moderation List - Request page ${this.get('page')}  of  ${this.get('status')}  list`,
-                });
         },
         sortChanged(sort) {
             this.resetQueryParams(['page']);
@@ -47,7 +41,7 @@ export default Controller.extend(Analytics, moderationQueryParams.Mixin, {
     },
 
     setup({ queryParams }) {
-        console.log('fetching reviews');
+        console.log('fetching requests');
         this.get('fetchData').perform(queryParams);
     },
 
@@ -64,19 +58,23 @@ export default Controller.extend(Analytics, moderationQueryParams.Mixin, {
     },
 
     fetchData: task(function* (queryParams) {
-        const provider = this.get('theme.provider');
-        const response = yield provider.queryHasMany('preprints', {
-            filter: {
-                reviews_state: queryParams.status,
-                node_is_public: true,
+        const providerId = this.get('theme.provider.id');
+        const response = yield this.get('store').query(
+            'preprint-request',
+            {
+                providerId: this.get('theme').provider.id,
+                filter: {
+                    machine_state: queryParams.status,
+                },
+                'meta[requests_state_counts]': true,
+                embed: 'target',
+                sort: queryParams.sort,
+                page: queryParams.page,
             },
-            'meta[reviews_state_counts]': true,
-            sort: queryParams.sort,
-            page: queryParams.page,
-        });
-        this.get('theme').set('reviewableStatusCounts', response.meta.reviews_state_counts);
+        );
+        this.get('theme').set('requestStatusCounts', response.meta.requests_state_counts);
         this.set('results', {
-            submissions: response.toArray(),
+            requests: response.toArray(),
             totalPages: Math.ceil(response.meta.total / response.meta.per_page),
         });
     }),
