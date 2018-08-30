@@ -9,6 +9,7 @@
 
 .moderator-name {
     flex: 1;
+    -ms-flex: auto; /* stylelint-disable-line property-no-vendor-prefix */
     display: inline-flex;
     align-items: center;
 
@@ -20,6 +21,7 @@
 
 .moderator-dropdown {
     flex: 1;
+    -ms-flex: auto; /* stylelint-disable-line property-no-vendor-prefix */
     display: flex;
     justify-content: center;
 
@@ -31,6 +33,7 @@
 
 .moderator-controls {
     flex: 1;
+    -ms-flex: auto; /* stylelint-disable-line property-no-vendor-prefix */
     display: flex;
     justify-content: flex-end;
 
