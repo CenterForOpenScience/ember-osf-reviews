@@ -165,6 +165,7 @@ test('it renders moderator-list-row admin view remove disabled for mod', functio
     assert.ok(this.$('.dropdown-button').length);
     assert.ok(this.$(`.${styles['moderator-controls']}`).children().length);
     assert.ok(this.$(`.${styles['remove-button']}.disabled`).length);
+
     assert.equal(this.$(`.${styles['moderator-name']}`).text().replace(/\s+/g, ' ').trim(), 'Brian Nosek');
     assert.equal(this.$('.dropdown-button').text().replace(/\s+/g, ' ').trim(), 'Moderator');
 });
