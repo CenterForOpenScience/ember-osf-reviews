@@ -8,6 +8,7 @@ import latestAction from 'reviews/utils/latest-action';
 const PENDING = 'pending';
 const ACCEPTED = 'accepted';
 const REJECTED = 'rejected';
+const WITHDRAWN = 'withdrawn';
 
 const PRE_MODERATION = 'pre-moderation';
 const POST_MODERATION = 'post-moderation';
@@ -15,15 +16,17 @@ const POST_MODERATION = 'post-moderation';
 const COMMENT_LIMIT = 65535;
 
 const ICONS = {
-    [PENDING]: 'fa-hourglass-o',
-    [ACCEPTED]: 'fa-check-circle-o',
-    [REJECTED]: 'fa-times-circle-o',
+    [PENDING]: ['fa-hourglass-o'],
+    [ACCEPTED]: ['fa-check-circle-o'],
+    [REJECTED]: ['fa-times-circle-o'],
+    [WITHDRAWN]: ['fa-circle-o', 'fa-minus inner-icon'],
 };
 
 const STATUS = {
     [PENDING]: 'components.preprintStatusBanner.pending',
     [ACCEPTED]: 'components.preprintStatusBanner.accepted',
     [REJECTED]: 'components.preprintStatusBanner.rejected',
+    [WITHDRAWN]: 'components.preprintStatusBanner.withdrawn',
 };
 
 const MESSAGE = {
@@ -31,6 +34,7 @@ const MESSAGE = {
     [POST_MODERATION]: 'components.preprintStatusBanner.message.pendingPost',
     [ACCEPTED]: 'components.preprintStatusBanner.message.accepted',
     [REJECTED]: 'components.preprintStatusBanner.message.rejected',
+    [WITHDRAWN]: 'components.preprintStatusBanner.message.withdrawn',
 };
 
 const CLASS_NAMES = {
@@ -38,6 +42,7 @@ const CLASS_NAMES = {
     [POST_MODERATION]: 'preprint-status-pending-post',
     [ACCEPTED]: 'preprint-status-accepted',
     [REJECTED]: 'preprint-status-rejected',
+    [WITHDRAWN]: 'preprint-status-withdrawn',
 };
 
 const SETTINGS = {
@@ -79,12 +84,16 @@ const DECISION_EXPLANATION = {
         [PRE_MODERATION]: 'components.preprintStatusBanner.decision.reject.pre',
         [POST_MODERATION]: 'components.preprintStatusBanner.decision.reject.post',
     },
+    withdrawn: {
+        [POST_MODERATION]: 'components.preprintStatusBanner.decision.withdrawn.post',
+    },
 };
 
 const RECENT_ACTIVITY = {
     [PENDING]: 'components.preprintStatusBanner.recentActivity.pending',
     [ACCEPTED]: 'components.preprintStatusBanner.recentActivity.accepted',
     [REJECTED]: 'components.preprintStatusBanner.recentActivity.rejected',
+    [WITHDRAWN]: 'components.preprintStatusBanner.recentActivity.withdrawn',
     automatic: {
         [PENDING]: 'components.preprintStatusBanner.recentActivity.automatic.pending',
         [ACCEPTED]: 'components.preprintStatusBanner.recentActivity.automatic.accepted',
@@ -100,7 +109,6 @@ export default Component.extend({
     feedbackBaseMessage: 'components.preprintStatusBanner.decision.base',
     commentPlaceholder: 'components.preprintStatusBanner.decision.commentPlaceholder',
     labelAccept: 'components.preprintStatusBanner.decision.accept.label',
-    labelReject: 'components.preprintStatusBanner.decision.reject.label',
 
     classNames: ['preprint-status-component'],
 
@@ -123,6 +131,30 @@ export default Component.extend({
     commentExceedsLimit: computed.gt('reviewerComment.length', COMMENT_LIMIT),
 
     userActivity: computed.or('commentEdited', 'decisionValueToggled'),
+
+    labelDate: computed('submission', function() {
+        return this.get('submission.dateWithdrawn') ?
+            this.get('submission.dateWithdrawn') :
+            this.get('submission.dateLastTransitioned');
+    }),
+
+    labelDecision: computed('submission', function() {
+        return this.get('submission.isPublished') ?
+            'components.preprintStatusBanner.decision.withdrawn.label' :
+            'components.preprintStatusBanner.decision.reject.label';
+    }),
+
+    radioDecision: computed('submission', function() {
+        return this.get('submission.isPublished') ?
+            'withdrawn' :
+            'rejected';
+    }),
+
+    isDisabled: computed('latestAction', 'submission.reviewActions.isPending', function() {
+        const reason = this.get('latestAction.comment');
+        const type = this.get('submission.reviewsState');
+        return ((type === 'withdrawn' && !reason) || this.get('submission.reviewActions.isPending'));
+    }),
 
     commentLengthErrorMessage: computed('reviewerComment', function () {
         const i18n = this.get('i18n');
@@ -163,7 +195,10 @@ export default Component.extend({
     }),
 
     latestAction: computed('submission.reviewActions.[]', function() {
-        return latestAction(this.get('submission.reviewActions'));
+        if (this.get('submission.reviewActions.[]')) {
+            return latestAction(this.get('submission.reviewActions'));
+        }
+        return null;
     }),
 
     noComment: computed('reviewerComment', function() {
@@ -197,16 +232,25 @@ export default Component.extend({
     acceptExplanation: computed('reviewsWorkflow', function() {
         return DECISION_EXPLANATION.accept[this.get('reviewsWorkflow')];
     }),
+
     rejectExplanation: computed('reviewsWorkflow', function() {
-        return DECISION_EXPLANATION.reject[this.get('reviewsWorkflow')];
+        return this.get('reviewsWorkflow') === 'pre-moderation' ?
+            DECISION_EXPLANATION.reject[this.get('reviewsWorkflow')] :
+            DECISION_EXPLANATION.withdrawn[this.get('reviewsWorkflow')];
     }),
 
     labelDecisionDropdown: computed('submission.reviewsState', function() {
+        if (this.get('submission.reviewsState') === 'withdrawn') {
+            return 'components.preprintStatusBanner.decision.withdrawalReason';
+        }
         return this.get('submission.reviewsState') === PENDING ?
             'components.preprintStatusBanner.decision.makeDecision' :
             'components.preprintStatusBanner.decision.modifyDecision';
     }),
     labelDecisionHeader: computed('submission.reviewsState', function() {
+        if (this.get('submission.reviewsState') === 'withdrawn') {
+            return 'components.preprintStatusBanner.decision.header.withdrawalReason';
+        }
         return this.get('submission.reviewsState') === PENDING ?
             'components.preprintStatusBanner.decision.header.submitDecision' :
             'components.preprintStatusBanner.decision.header.modifyDecision';
@@ -247,7 +291,10 @@ export default Component.extend({
             if (this.get('submission.reviewsState') !== PENDING && (this.get('commentEdited') && !this.get('decisionChanged'))) {
                 trigger = 'edit_comment';
             } else {
-                trigger = this.get('decision') === ACCEPTED ? 'accept' : 'reject';
+                const actionType = this.get('submission.isPublished') ?
+                    'withdraw' :
+                    'reject';
+                trigger = this.get('decision') === ACCEPTED ? 'accept' : actionType;
             }
 
             const comment = this.get('reviewerComment').trim();

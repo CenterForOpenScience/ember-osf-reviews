@@ -5,8 +5,12 @@
                 <div local-class="reviews-list-heading">
                     {{#each statusButtons as |statusButton|}}
                         <button class="btn" local-class="reviews-btn-filter {{if (eq status statusButton.status) 'active-filter'}}"
-                                {{action statusChanged statusButton.status}}>
-                            <i class="fa {{statusButton.iconClass}}"></i>
+                            {{action statusChanged statusButton.status}}>
+                            <span class="fa-stack">
+                                {{#each statusButton.iconClass as |class|}}
+                                    <i class="fa {{class}} fa-stack-1x"></i>
+                                {{/each}}
+                            </span>
                             <span>{{get theme.reviewableStatusCounts statusButton.status}}</span>
                             {{t statusButton.labelKey}}
                         </button>

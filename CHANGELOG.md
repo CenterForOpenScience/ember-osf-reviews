@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Custom dimensions to `trackPage` for Google Analytics
+- Tombstone for withdrawn preprints
+- Withdrawn section to moderation list
+- Ability to withdraw from `preprint-detail` page
 
 ### Fixed
 - Use `name` field for contributors on preprint-detail page
