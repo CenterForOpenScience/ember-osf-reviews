@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Use `name` field for contributors on preprint-detail page
 - Prevent banner from loading on `preprint-detail` page if preprint is undefined
+- Show DOI url if it exists
 
 ## Changed
 - Use Ember-CSS-Modules
