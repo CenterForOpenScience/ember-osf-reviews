@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 import Controller from '@ember/controller';
 
 import { task, waitForQueue } from 'ember-concurrency';
+import loadAll from 'ember-osf/utils/load-relationship';
 import $ from 'jquery';
 
 
@@ -38,6 +39,7 @@ export default Controller.extend({
     userHasEnteredReview: false,
     showWarning: false,
     previousTransition: null,
+    authors: [],
 
     hasTags: bool('preprint.tags.length'),
     expandedAbstract: navigator.userAgent.includes('Prerender'),
@@ -168,14 +170,17 @@ export default Controller.extend({
         const response = yield this.get('store').findRecord(
             'preprint',
             preprintId,
-            { include: ['node', 'license', 'review_actions', 'contributors'] },
+            { include: ['node', 'license', 'review_actions'] },
         ).catch(() => this.replaceRoute('page-not-found'));
 
+        const contributors = this.get('authors');
+        loadAll(response, 'contributors', contributors, {
+            filter: { bibliographic: true },
+        });
         this.set('preprint', response);
         if (response.get('dateWithdrawn') !== null) {
             this.set('isWithdrawn', true);
         }
-        this.set('authors', response.get('contributors'));
         this.set('preprint', response);
         let withdrawalRequest = yield this.get('preprint.requests');
         withdrawalRequest = withdrawalRequest.toArray();
