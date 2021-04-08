@@ -39,7 +39,6 @@ export default Controller.extend({
     userHasEnteredReview: false,
     showWarning: false,
     previousTransition: null,
-    authors: [],
 
     hasTags: bool('preprint.tags.length'),
     expandedAbstract: navigator.userAgent.includes('Prerender'),
@@ -173,10 +172,11 @@ export default Controller.extend({
             { include: ['node', 'license', 'review_actions'] },
         ).catch(() => this.replaceRoute('page-not-found'));
 
-        const contributors = this.get('authors');
+        const contributors = [];
         loadAll(response, 'contributors', contributors, {
             filter: { bibliographic: true },
         });
+        this.set('authors', contributors);
         this.set('preprint', response);
         if (response.get('dateWithdrawn') !== null) {
             this.set('isWithdrawn', true);
