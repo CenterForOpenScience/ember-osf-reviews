@@ -14,9 +14,11 @@
                     <div>
                         {{#if (not-eq submission.reviewsState 'withdrawn')}}
                             {{submittedOnLabel}}
-                            {{#each firstContributors as |contributor| ~}}
-                                <li>{{contributor.users.fullName}}</li>
-                            {{/each}}
+                            <ul>
+                                {{#each firstContributors as |contributor| ~}}
+                                    <li>{{contributor.users.fullName}}</li>
+                                {{/each}}
+                            </ul>
                             {{#if (gt additionalContributors 0)}}
                                 + {{additionalContributors}}
                             {{/if}}
