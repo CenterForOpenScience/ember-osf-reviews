@@ -30,6 +30,10 @@ body > :global(.ember-view) {
     margin-top: 0;
     text-shadow: 0 1px 0 $color-white;
     width: 100%;
+    
+    a {
+        color: $color-link-dark;
+    }
 }
 
 .footer ul,
