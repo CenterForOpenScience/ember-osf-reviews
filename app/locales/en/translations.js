@@ -260,6 +260,7 @@ export default {
         moderatorList: {
             editDisabledMessage: 'Can only edit one moderator at a time',
             adminDisabledMessage: 'Must have one admin',
+            removeButton: 'Remove moderator',
         },
         preprintStatusBanner: {
             recentActivity: {

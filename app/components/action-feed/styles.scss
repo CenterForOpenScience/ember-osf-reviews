@@ -4,5 +4,9 @@
     .see-more {
         height: 20px;
         padding-left: 45px;
+
+        a {
+            color: $color-link-dark;
+        }
     }
 }
